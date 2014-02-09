@@ -1,0 +1,22 @@
+<web-app version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>Linch</display-name>
+
+    <servlet>
+		<servlet-name>linch-dispatcher</servlet-name>
+		<servlet-class>com.linchproject.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>controllerPackage</param-name>
+            <param-value>com.linchproject.app</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>linch-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
