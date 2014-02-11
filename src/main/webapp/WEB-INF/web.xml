@@ -8,14 +8,6 @@
     <servlet>
         <servlet-name>linch-dispatcher</servlet-name>
         <servlet-class>com.linchproject.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>controllerPackage</param-name>
-            <param-value>com.linchproject.app</param-value>
-        </init-param>
-        <init-param>
-            <param-name>rendererClassName</param-name>
-            <param-value>com.linchproject.mustache.MustacheRenderer</param-value>
-        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
