@@ -10,11 +10,6 @@ import com.linchproject.core.Result;
 public class AdminController extends Controller {
 
     public Result _all(Params params) {
-        return redirect(route.shift("admin"));
-    }
-
-    @Override
-    public boolean isPermitted() {
-        return route.getUserId() != null && "admin".equals(route.getUserId());
+        return dispatch(route.shift("admin"));
     }
 }
