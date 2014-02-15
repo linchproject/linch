@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class AssetsController extends Controller {
 
     public Result _all(Params params) {
-        String fileName = "/assets/" + route.getAction() + (route.getTail() != null? "/" + route.getTail(): "");
+        String fileName = "/assets/" + route.getAfterController();
         InputStream inputStream = getClass().getResourceAsStream(fileName);
         return binary(inputStream);
     }
