@@ -1,6 +1,5 @@
 package com.linchproject.app;
 
-import com.linchproject.core.Result;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -9,21 +8,30 @@ import org.sql2o.Sql2o;
  */
 public class Controller extends com.linchproject.mvc.Controller {
 
-    private Connection connection;
+    protected Connection connection;
 
-    public Connection getConnection() {
-        if (connection == null) {
+    @Override
+    public void init() {
+        if (dataSource != null) {
             Sql2o sql2o = new Sql2o(dataSource);
             connection = sql2o.beginTransaction();
         }
-        return connection;
+        super.init();
     }
 
     @Override
-    protected Result exit(Result result) {
+    public void onError() {
+        if (connection != null) {
+            connection.rollback();
+        }
+        super.onError();
+    }
+
+    @Override
+    public void onSuccess() {
         if (connection != null) {
             connection.commit();
         }
-        return super.exit(result);
+        super.onSuccess();
     }
 }
