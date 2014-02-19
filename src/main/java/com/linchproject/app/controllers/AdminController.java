@@ -9,8 +9,7 @@ import com.linchproject.core.Result;
  */
 public class AdminController extends Controller {
 
-    @Override
-    public Result _filter(Params params) {
+    public Result _(Params params) {
         return dispatch(route.shift("admin"));
     }
 }

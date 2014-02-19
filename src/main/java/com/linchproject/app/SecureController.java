@@ -9,11 +9,10 @@ import com.linchproject.mvc.Controller;
  */
 public abstract class SecureController extends Controller {
 
-    @Override
-    public Result _filter(Params params) {
+    public Result _(Params params) {
         Result result;
         if (isPermitted()) {
-            result = super._filter(params);
+            result = dispatch(route);
         } else {
             result = error("Not permitted");
         }
