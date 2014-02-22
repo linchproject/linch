@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Linch</a>
+            <a class="navbar-brand" href="/">Linch</a>
         </div>
 
         <div class="collapse navbar-collapse">
@@ -38,16 +38,18 @@
             -->
 
             {{^route.userId}}
-                <form class="navbar-form navbar-right" role="form" action="{{#path}}/auth/login{{/path}}" method="post">
-                    <div class="form-group">
-                        <input type="text" placeholder="Username" class="form-control" name="username">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="password">
-                    </div>
-                    <input type="hidden" name="next" value="{{route.url}}">
-                    <button type="submit" class="btn btn-success">Sign in</button>
-                </form>
+                {{^hideNavigationLogin}}
+                    <form class="navbar-form navbar-right" role="form" action="{{#path}}/login{{/path}}" method="post">
+                        <div class="form-group">
+                            <input type="text" placeholder="Username" class="form-control" name="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control" name="password">
+                        </div>
+                        <input type="hidden" name="next" value="{{route.url}}">
+                        <input class="btn btn-success" type="submit" name="submit" value="Sign in">
+                    </form>
+                {{/hideNavigationLogin}}
             {{/route.userId}}
 
             {{#route.userId}}
@@ -57,7 +59,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{#path}}/admin{{/path}}">Admin</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{#path}}/auth/logout?next={{route.url}}{{/path}}">Logout</a></li>
+                            <li><a href="{{#path}}/logout?next={{route.url}}{{/path}}">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
