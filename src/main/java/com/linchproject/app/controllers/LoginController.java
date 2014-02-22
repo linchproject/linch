@@ -1,20 +1,23 @@
 package com.linchproject.app.controllers;
 
-import com.linchproject.app.AuthController;
 import com.linchproject.app.models.User;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
+import com.linchproject.mvc.Controller;
+import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  * @author Georg Schmidl
  */
-public class LoginController extends AuthController {
+public class LoginController extends Controller {
+
+    protected PasswordEncryptor passwordEncryptor;
 
     public Result index(Params params) {
         if (params.getValue("submit") != null) {
             String username = params.getValue("username");
 
-            User user = fetch(username);
+            User user = User.fetch(username);
             if (user != null) {
                 String password = params.getValue("password");
                 if (passwordEncryptor.checkPassword(password, user.getPassword())) {
@@ -32,5 +35,9 @@ public class LoginController extends AuthController {
                     .put("hideNavigationLogin", true)
                     .put("next", params.getValue("next") == null? "/": params.getValue("next")));
         }
+    }
+
+    public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
+        this.passwordEncryptor = passwordEncryptor;
     }
 }

@@ -1,5 +1,9 @@
 package com.linchproject.app.models;
 
+import java.util.List;
+
+import static com.linchproject.mvc.Controller.query;
+
 /**
  * @author Georg Schmidl
  */
@@ -50,5 +54,32 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static User fetch(String username) {
+        return query("select id, username, password, full_name, email from user where username = :username")
+                .addParameter("username", username)
+                .executeAndFetchFirst(User.class);
+    }
+
+    public static List<User> fetchAll() {
+        return query("select id, username, password, full_name, email from user")
+                .executeAndFetch(User.class);
+    }
+
+    public void save() {
+        if (getId() == null) {
+            setId(query("insert into user ( username, password, full_name, email ) " +
+                    "values ( :username, :password, :full_name, :email )", true)
+                    .bind(this)
+                    .executeUpdate()
+                    .<Long>getKey(Long.class));
+        } else {
+            setId(query("update user set username = :username, password = :password," +
+                    " full_name = :full_name, email = :email where id = :id", true)
+                    .bind(this)
+                    .executeUpdate()
+                    .<Long>getKey(Long.class));
+        }
     }
 }
