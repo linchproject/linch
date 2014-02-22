@@ -1,0 +1,31 @@
+{{<../super}}{{$adminContent}}
+
+<h1>Users</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Username</th>
+        <th>Full Name</th>
+        <th>email</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{username}}</td>
+            <td>{{fullName}}</td>
+            <td>{{email}}</td>
+        </tr>
+    {{/users}}
+    {{^users}}
+        <tr>
+            <td colspan="4">No users.</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
+
+{{/adminContent}}{{/../super}}
