@@ -1,17 +1,14 @@
 package com.linchproject.app.controllers;
 
+import com.linchproject.app.AuthController;
 import com.linchproject.app.models.User;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Georg Schmidl
  */
 public class LoginController extends AuthController {
-
 
     public Result index(Params params) {
         if (params.getValue("submit") != null) {
@@ -25,20 +22,15 @@ public class LoginController extends AuthController {
                     return redirect(params.getValue("next"));
                 }
             }
-
-            Map<String, Object> context = new HashMap<String, Object>();
-            context.put("hideNavigationLogin", true);
-            context.put("error", "Username or password incorrect");
-            context.put("username", params.getValue("username"));
-            context.put("next", params.getValue("next"));
-
-            return render("login", context);
+            return render("login", context()
+                    .put("hideNavigationLogin", true)
+                    .put("error", "Username or password incorrect")
+                    .put("username", params.getValue("username"))
+                    .put("next", params.getValue("next")));
         } else {
-            Map<String, Object> context = new HashMap<String, Object>();
-            context.put("hideNavigationLogin", true);
-            context.put("next", "/");
-
-            return render("login", context);
+            return render("login", context()
+                    .put("hideNavigationLogin", true)
+                    .put("next", params.getValue("next") == null? "/": params.getValue("next")));
         }
     }
 }

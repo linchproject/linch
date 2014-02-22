@@ -1,4 +1,4 @@
-package com.linchproject.app.controllers;
+package com.linchproject.app;
 
 import com.linchproject.app.models.User;
 import com.linchproject.mvc.Controller;
