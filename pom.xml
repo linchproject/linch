@@ -22,11 +22,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.linchproject</groupId>
-            <artifactId>linch-datasource</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
