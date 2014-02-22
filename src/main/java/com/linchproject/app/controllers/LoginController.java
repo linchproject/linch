@@ -13,7 +13,7 @@ import java.util.Map;
 public class LoginController extends AuthController {
 
 
-    public Result _(Params params) {
+    public Result index(Params params) {
         if (params.getValue("submit") != null) {
             String username = params.getValue("username");
 
