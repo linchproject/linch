@@ -2,21 +2,13 @@ package com.linchproject.app.dao;
 
 import com.linchproject.app.models.User;
 import com.linchproject.ioc.Component;
-import org.sql2o.Connection;
-import org.sql2o.Sql2o;
-import org.sql2o.StatementRunnable;
 
-import javax.sql.DataSource;
 import java.util.List;
-
-import static com.linchproject.mvc.ConnectionThreadLocal.query;
 
 /**
  * @author Georg Schmidl
  */
-public class Sql2oUserDao implements UserDao, Component {
-
-    protected DataSource dataSource;
+public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
 
     @Override
     public User findByUsername(String username) {
@@ -57,34 +49,24 @@ public class Sql2oUserDao implements UserDao, Component {
 
     @Override
     public void init() {
-        new Sql2o(dataSource).runInTransaction(new StatementRunnable() {
-            @Override
-            public void run(Connection connection, Object argument) throws Throwable {
-                connection.createQuery("CREATE TABLE IF NOT EXISTS user ( " +
-                        "id int(11) unsigned NOT NULL AUTO_INCREMENT, " +
-                        "username varchar(255) NOT NULL DEFAULT '', " +
-                        "password varchar(255) DEFAULT NULL, " +
-                        "full_name varchar(255) DEFAULT NULL, " +
-                        "email varchar(255) DEFAULT '', " +
-                        "PRIMARY KEY (id), " +
-                        "KEY username (username) " +
-                        ")").executeUpdate();
+        query("CREATE TABLE IF NOT EXISTS user ( " +
+                "id int(11) unsigned NOT NULL AUTO_INCREMENT, " +
+                "username varchar(255) NOT NULL DEFAULT '', " +
+                "password varchar(255) DEFAULT NULL, " +
+                "full_name varchar(255) DEFAULT NULL, " +
+                "email varchar(255) DEFAULT '', " +
+                "PRIMARY KEY (id), " +
+                "KEY username (username) " +
+                ")").executeUpdate();
 
-                User user = connection.createQuery("select id from user")
-                        .executeAndFetchFirst(User.class);
+        User user = query("select id from user").executeAndFetchFirst(User.class);
 
-                if (user == null) {
-                    connection.createQuery("insert into user ( username, password ) " +
-                            "values ( :username, :password )")
-                            .addParameter("username", "admin")
-                            .addParameter("password", "N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J")
-                            .executeUpdate();
-                }
-            }
-        });
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+        if (user == null) {
+            query("insert into user ( username, password ) " +
+                    "values ( :username, :password )")
+                    .addParameter("username", "admin")
+                    .addParameter("password", "N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J")
+                    .executeUpdate();
+        }
     }
 }
