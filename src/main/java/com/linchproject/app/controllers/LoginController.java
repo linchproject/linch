@@ -1,10 +1,9 @@
 package com.linchproject.app.controllers;
 
-import com.linchproject.app.dao.UserDao;
+import com.linchproject.app.Controller;
 import com.linchproject.app.models.User;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
-import com.linchproject.mvc.Controller;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**
@@ -12,7 +11,6 @@ import org.jasypt.util.password.PasswordEncryptor;
  */
 public class LoginController extends Controller {
 
-    protected UserDao userDao;
     protected PasswordEncryptor passwordEncryptor;
 
     public Result index(Params params) {
@@ -41,9 +39,5 @@ public class LoginController extends Controller {
 
     public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
     }
 }

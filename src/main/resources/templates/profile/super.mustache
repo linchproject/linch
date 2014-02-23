@@ -1,0 +1,15 @@
+{{<../super}}{{$content}}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="{{#path}}/profile{{/path}}" class="list-group-item {{#navIndex}}active{{/navIndex}}">Profile</a>
+            <a href="{{#path}}/profile/changePassword{{/path}}" class="list-group-item {{#navChangePassword}}active{{/navChangePassword}}">Change Password</a>
+        </div>
+    </div>
+<div class="col-md-9">
+{{$inner}}{{/inner}}
+</div>
+</div>
+
+{{/content}}{{/../super}}

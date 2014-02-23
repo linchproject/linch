@@ -1,0 +1,37 @@
+{{<super}}{{$inner}}
+
+<h1 class="page-header">Edit</h1>
+
+<form class="form-horizontal" role="form" action="{{#path}}.{{/path}}" method="post">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Username</label>
+        <div class="col-sm-5">
+            <p class="form-control-static">{{user.username}}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstName" class="col-sm-3 control-label">First Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="firstName" name="firstName" value="{{user.firstName}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="lastName" name="lastName" value="{{user.lastName}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-5">
+            <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-5">
+            <input class="btn btn-default" type="submit" name="submit" value="Save">
+        </div>
+    </div>
+</form>
+
+{{/inner}}{{/super}}

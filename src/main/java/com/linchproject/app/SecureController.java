@@ -2,7 +2,6 @@ package com.linchproject.app;
 
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
-import com.linchproject.mvc.Controller;
 
 /**
  * @author Georg Schmidl
@@ -11,15 +10,15 @@ public abstract class SecureController extends Controller {
 
     public Result _(Params params) {
         Result result;
-        if (isPermitted()) {
+        if (isLoggedIn()) {
             result = dispatch(route);
         } else {
-            result = error("Not permitted");
+            result = redirect("/login?next=" + route.getPath());
         }
         return result;
     }
 
-    protected boolean isPermitted() {
+    protected boolean isLoggedIn() {
         return route.getUserId() != null;
     }
 }

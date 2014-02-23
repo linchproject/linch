@@ -3,12 +3,12 @@
 <div class="row">
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
-            <li {{#nav.index}}class="active"{{/nav.index}}><a href="/admin">Admin</a></li>
-            <li {{#nav.users}}class="active"{{/nav.users}}><a href="/admin/users">Users</a></li>
+            <li {{#navIndex}}class="active"{{/navIndex}}><a href="{{#path}}/admin{{/path}}">Admin</a></li>
+            <li {{#navUsers}}class="active"{{/navUsers}}><a href="{{#path}}/admin/users{{/path}}">Users</a></li>
         </ul>
     </div>
     <div class="col-md-9">
-        {{$adminContent}}{{/adminContent}}
+        {{$inner}}{{/inner}}
     </div>
 </div>
 

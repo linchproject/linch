@@ -34,14 +34,14 @@ public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
     public void save(User model) {
         if (model.getId() == null) {
             model.setId(query("insert into user ( username, password, first_name, last_name, email ) " +
-                    "values ( :username, :password, :first_name, :last_name, :email )", true)
-                    .bind(this)
+                    "values ( :username, :password, :firstName, :lastName, :email )", true)
+                    .bind(model)
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         } else {
             model.setId(query("update user set username = :username, password = :password, " +
-                    "first_name = :first_name, last_name = :last_name, email = :email where id = :id", true)
-                    .bind(this)
+                    "first_name = :firstName, last_name = :lastName, email = :email where id = :id", true)
+                    .bind(model)
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         }

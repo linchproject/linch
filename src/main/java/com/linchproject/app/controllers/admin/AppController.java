@@ -11,8 +11,7 @@ public class AppController extends AdministratorController {
 
     public Result index(Params params) {
         return render("admin/index", context()
-                .put("nav", context().put("index", true))
-                .put("nav.admin", true)
+                .put("navIndex", true)
                 .put("hello", "Hello Admin"));
     }
 

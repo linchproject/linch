@@ -2,7 +2,6 @@ package com.linchproject.app;
 
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
-import com.linchproject.mvc.Controller;
 
 /**
  * @author Georg Schmidl
@@ -16,7 +15,7 @@ public abstract class AdministratorController extends Controller {
         } else if (isLoggedIn()) {
             result = error("Not permitted");
         } else {
-            return redirect("/login?next=" + route.getPath());
+            result = redirect("/login?next=" + route.getPath());
         }
         return result;
     }
