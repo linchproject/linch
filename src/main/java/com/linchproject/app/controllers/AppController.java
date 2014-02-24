@@ -1,11 +1,8 @@
 package com.linchproject.app.controllers;
 
+import com.linchproject.app.Controller;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
-import com.linchproject.app.Controller;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Georg Schmidl
@@ -13,9 +10,6 @@ import java.util.Map;
 public class AppController extends Controller {
 
     public Result index(Params params) {
-        Map<String, Object> context = new HashMap<String, Object>();
-        context.put("hello", "Hello Linch");
-
-        return render("index", context);
+        return render("index", context().put("hello", "Hello Linch"));
     }
 }

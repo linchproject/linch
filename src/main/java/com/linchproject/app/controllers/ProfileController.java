@@ -13,11 +13,6 @@ public class ProfileController extends SecureController {
 
     protected PasswordEncryptor passwordEncryptor;
 
-    public Result _(Params params) {
-        route.setUserId("admin");
-        return super._(params);
-    }
-
     public Result index(Params params) {
         return render("profile/index", context().put("navIndex", true));
     }

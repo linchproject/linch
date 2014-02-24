@@ -21,7 +21,7 @@ public class LoginController extends Controller {
             if (user != null) {
                 String password = params.getValue("password");
                 if (passwordEncryptor.checkPassword(password, user.getPassword())) {
-                    route.setUserId(params.getValue("username"));
+                    sessionService.setUserId(params.getValue("username"));
                     return redirect(params.getValue("next"));
                 }
             }

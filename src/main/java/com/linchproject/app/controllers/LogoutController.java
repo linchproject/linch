@@ -10,7 +10,7 @@ import com.linchproject.core.Result;
 public class LogoutController extends Controller {
 
     public Result index(Params params) {
-        route.setUserId(null);
+        sessionService.setUserId(null);
         return redirect("/");
     }
 }

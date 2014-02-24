@@ -21,10 +21,10 @@ public abstract class AdministratorController extends Controller {
     }
 
     protected boolean isLoggedIn() {
-        return route.getUserId() != null;
+        return sessionService.getUserId() != null;
     }
 
     protected boolean isPermitted() {
-        return isLoggedIn() && "admin".equals(route.getUserId());
+        return isLoggedIn() && "admin".equals(sessionService.getUserId());
     }
 }
