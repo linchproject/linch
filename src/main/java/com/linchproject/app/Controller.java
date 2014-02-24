@@ -1,7 +1,10 @@
 package com.linchproject.app;
 
+import com.linchproject.app.dao.RememberDao;
 import com.linchproject.app.dao.UserDao;
+import com.linchproject.app.models.Remember;
 import com.linchproject.app.models.User;
+import com.linchproject.http.CookieService;
 import com.linchproject.http.SessionService;
 import com.linchproject.mvc.Context;
 
@@ -11,15 +14,42 @@ import com.linchproject.mvc.Context;
 public class Controller extends com.linchproject.mvc.Controller {
 
     protected SessionService sessionService;
+    protected CookieService cookieService;
+
     protected UserDao userDao;
+    protected RememberDao rememberDao;
 
     private User user;
+    private boolean cookieChecked;
 
     protected User getUser() {
-        if (user == null && sessionService.getUserId() != null) {
-            user = userDao.findByUsername(sessionService.getUserId());
+        String username = getUsernameFromSessionOrCookie();
+
+        if (user == null && username != null) {
+            user = userDao.findByUsername(username);
         }
         return user;
+    }
+
+    private String getUsernameFromSessionOrCookie() {
+        String userId = sessionService.getUserId();
+
+        if (userId == null && !cookieChecked) {
+            String uuid = cookieService.getCookieValue(Settings.COOKIE_NAME);
+            if (uuid != null) {
+                Remember remember = rememberDao.findByUuid(uuid);
+                if (remember != null) {
+                    User user = userDao.findById(remember.getUserId());
+                    if (user != null) {
+                        userId = user.getUsername();
+                        sessionService.setUserId(user.getUsername());
+                        cookieService.addCookie(Settings.COOKIE_NAME, remember.getUuid(), Settings.COOKIE_MAX_AGE);
+                    }
+                }
+            }
+            cookieChecked = true;
+        }
+        return userId;
     }
 
     @Override
@@ -31,7 +61,15 @@ public class Controller extends com.linchproject.mvc.Controller {
         this.sessionService = sessionService;
     }
 
+    public void setCookieService(CookieService cookieService) {
+        this.cookieService = cookieService;
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public void setRememberDao(RememberDao rememberDao) {
+        this.rememberDao = rememberDao;
     }
 }

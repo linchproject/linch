@@ -48,6 +48,15 @@ public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
     }
 
     @Override
+    public void delete(User model) {
+        if (model.getId() != null) {
+            query("delete from user where id = :id")
+                    .addParameter("id", model.getId())
+                    .executeUpdate();
+        }
+    }
+
+    @Override
     public void init() {
         query("create table if not exists user ( " +
                 "id int(11) unsigned not null auto_increment, " +

@@ -21,13 +21,11 @@
                                 </span>
                                 <input class="form-control" placeholder="Password" name="password" type="password" required>
                             </div>
-                            <!--
                             <div class="checkbox">
                                 <label>
-                                    <input name="remember" type="checkbox" value="Remember Me"> Remember Me
+                                    <input name="remember" type="checkbox" value="true" {{#remember}}checked{{/remember}}> Remember Me
                                 </label>
                             </div>
-                            -->
                             <input type="hidden" name="next" value="{{next}}">
                             <input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="Sign in">
                         </fieldset>

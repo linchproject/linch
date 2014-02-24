@@ -19,6 +19,6 @@ public abstract class SecureController extends Controller {
     }
 
     protected boolean isLoggedIn() {
-        return sessionService.getUserId() != null;
+        return getUser() != null;
     }
 }

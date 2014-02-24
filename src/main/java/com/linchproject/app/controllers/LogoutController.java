@@ -11,6 +11,7 @@ public class LogoutController extends Controller {
 
     public Result index(Params params) {
         sessionService.setUserId(null);
+        cookieService.removeCookie("linch");
         return redirect("/");
     }
 }

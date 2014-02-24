@@ -6,7 +6,7 @@ import com.linchproject.core.Result;
 /**
  * @author Georg Schmidl
  */
-public abstract class AdministratorController extends Controller {
+public abstract class AdministratorController extends SecureController {
 
     public Result _(Params params) {
         Result result;
@@ -20,11 +20,7 @@ public abstract class AdministratorController extends Controller {
         return result;
     }
 
-    protected boolean isLoggedIn() {
-        return sessionService.getUserId() != null;
-    }
-
     protected boolean isPermitted() {
-        return isLoggedIn() && "admin".equals(sessionService.getUserId());
+        return isLoggedIn() && "admin".equals(getUser().getUsername());
     }
 }

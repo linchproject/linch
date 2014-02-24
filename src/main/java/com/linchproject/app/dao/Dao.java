@@ -12,4 +12,6 @@ public interface Dao<T, U> {
     List<T> findAll();
 
     void save(T model);
+
+    void delete(T model);
 }
