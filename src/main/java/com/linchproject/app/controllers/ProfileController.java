@@ -21,13 +21,9 @@ public class ProfileController extends SecureController {
         Result result;
         if (params.getValue("submit") != null) {
             User user = getUser();
+            user.setFirstName(params.getValue("firstName"));
+            user.setLastName(params.getValue("lastName"));
 
-            if (params.getValue("firstName") != null) {
-                user.setFirstName(params.getValue("firstName"));
-            }
-            if (params.getValue("lastName") != null) {
-                user.setLastName(params.getValue("lastName"));
-            }
             if (params.getValue("email") != null) {
                 user.setEmail(params.getValue("email"));
             }
