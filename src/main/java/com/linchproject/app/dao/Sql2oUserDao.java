@@ -88,4 +88,9 @@ public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
                     .executeUpdate();
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
 }

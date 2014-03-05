@@ -73,4 +73,9 @@ public class Sql2oRememberDao extends Sql2oDao implements RememberDao, Component
                 "key user_id (user_id) " +
                 ") engine=InnoDB default charset=utf8").executeUpdate();
     }
+
+    @Override
+    public void destroy() {
+
+    }
 }
