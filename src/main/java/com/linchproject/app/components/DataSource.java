@@ -71,7 +71,6 @@ public class DataSource implements javax.sql.DataSource, Component {
         return comboPooledDataSource.getLoginTimeout();
     }
 
-    @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         return null;
     }
