@@ -56,8 +56,8 @@
                     <contextPath>/</contextPath>
                     <systemProperties>
                         <systemProperty>
-                            <name>com.linchproject.environment</name>
-                            <value>development</value>
+                            <name>com.linchproject.dev</name>
+                            <value>true</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>
