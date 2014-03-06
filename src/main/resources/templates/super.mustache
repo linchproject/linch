@@ -39,16 +39,9 @@
 
             {{^user}}
                 {{^hideNavigationLogin}}
-                    <form class="navbar-form navbar-right" role="form" action="{{#path}}/login{{/path}}" method="post">
-                        <div class="form-group">
-                            <input type="text" placeholder="Username" class="form-control" name="username">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" name="password">
-                        </div>
-                        <input type="hidden" name="next" value="{{route.url}}">
-                        <input class="btn btn-success" type="submit" name="submit" value="Sign in">
-                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{#path}}/login{{/path}}">Sign in</a></li>
+                    </ul>
                 {{/hideNavigationLogin}}
             {{/user}}
 
