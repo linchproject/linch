@@ -58,8 +58,13 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
                 <configuration>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
                     <contextPath>/</contextPath>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>com.linchproject.environment</name>
+                            <value>development</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
