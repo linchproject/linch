@@ -25,7 +25,7 @@ public class LoginController extends Controller {
             if (user != null) {
                 String password = params.getValue("password");
                 if (passwordEncryptor.checkPassword(password, user.getPassword())) {
-                    sessionService.setUserId(params.getValue("username"));
+                    sessionService.setValue(Settings.SESSION_USER_KEY, params.getValue("username"));
 
                     if ("true".equals(params.getValue("remember"))) {
                         String uuid = UUID.randomUUID().toString();

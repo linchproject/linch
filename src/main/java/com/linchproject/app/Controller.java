@@ -32,7 +32,7 @@ public class Controller extends com.linchproject.framework.Controller {
     }
 
     private String getUsernameFromSessionOrCookie() {
-        String userId = sessionService.getUserId();
+        String userId = sessionService.getValue(Settings.SESSION_USER_KEY);
 
         if (userId == null && !cookieChecked) {
             String uuid = cookieService.getCookieValue(Settings.COOKIE_NAME);
@@ -42,7 +42,7 @@ public class Controller extends com.linchproject.framework.Controller {
                     User user = userDao.findById(remember.getUserId());
                     if (user != null) {
                         userId = user.getUsername();
-                        sessionService.setUserId(user.getUsername());
+                        sessionService.setValue(Settings.SESSION_USER_KEY, user.getUsername());
                         cookieService.addCookie(Settings.COOKIE_NAME, remember.getUuid(), Settings.COOKIE_MAX_AGE);
                     }
                 }
