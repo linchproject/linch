@@ -1,6 +1,6 @@
 package com.linchproject.app.dao;
 
-import com.linchproject.framework.components.ConnectionService;
+import com.linchproject.framework.db.ConnectionService;
 import org.sql2o.Query;
 
 /**

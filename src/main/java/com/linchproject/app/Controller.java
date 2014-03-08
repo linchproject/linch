@@ -5,7 +5,7 @@ import com.linchproject.app.dao.RememberDao;
 import com.linchproject.app.dao.UserDao;
 import com.linchproject.app.models.Remember;
 import com.linchproject.app.models.User;
-import com.linchproject.framework.I18n;
+import com.linchproject.framework.i18n.I18n;
 import com.linchproject.http.CookieService;
 import com.linchproject.http.LocaleService;
 import com.linchproject.http.SessionService;
