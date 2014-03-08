@@ -1,14 +1,14 @@
 package com.linchproject.app.dao;
 
 import com.linchproject.app.models.Remember;
-import com.linchproject.ioc.Component;
+import com.linchproject.ioc.Initializing;
 
 import java.util.List;
 
 /**
  * @author Georg Schmidl
  */
-public class Sql2oRememberDao extends Sql2oDao implements RememberDao, Component {
+public class Sql2oRememberDao extends Sql2oDao implements RememberDao, Initializing {
 
     @Override
     public Remember findById(Long id) {
@@ -72,10 +72,5 @@ public class Sql2oRememberDao extends Sql2oDao implements RememberDao, Component
                 "key uuid (uuid), " +
                 "key user_id (user_id) " +
                 ") engine=InnoDB default charset=utf8").executeUpdate();
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

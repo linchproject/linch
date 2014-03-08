@@ -1,14 +1,14 @@
 package com.linchproject.app.dao;
 
 import com.linchproject.app.models.User;
-import com.linchproject.ioc.Component;
+import com.linchproject.ioc.Initializing;
 
 import java.util.List;
 
 /**
  * @author Georg Schmidl
  */
-public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
+public class Sql2oUserDao extends Sql2oDao implements UserDao, Initializing {
 
     @Override
     public User findByUsername(String username) {
@@ -87,10 +87,5 @@ public class Sql2oUserDao extends Sql2oDao implements UserDao, Component {
                     .addParameter("password", "N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J")
                     .executeUpdate();
         }
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }
