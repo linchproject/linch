@@ -5,9 +5,7 @@ import com.linchproject.app.dao.RememberDao;
 import com.linchproject.app.dao.UserDao;
 import com.linchproject.app.models.Remember;
 import com.linchproject.app.models.User;
-import com.linchproject.framework.Context;
 import com.linchproject.framework.I18n;
-import com.linchproject.framework.components.I18nService;
 import com.linchproject.http.CookieService;
 import com.linchproject.http.LocaleService;
 import com.linchproject.http.SessionService;
@@ -20,7 +18,6 @@ public class Controller extends com.linchproject.framework.Controller {
     protected SessionService sessionService;
     protected CookieService cookieService;
     protected LocaleService localeService;
-    protected I18nService i18nService;
 
     protected UserDao userDao;
     protected RememberDao rememberDao;
@@ -89,10 +86,6 @@ public class Controller extends com.linchproject.framework.Controller {
 
     public void setLocaleService(LocaleService localeService) {
         this.localeService = localeService;
-    }
-
-    public void setI18nService(I18nService i18nService) {
-        this.i18nService = i18nService;
     }
 
     public void setUserDao(UserDao userDao) {
