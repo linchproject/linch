@@ -4,14 +4,14 @@ import com.linchproject.app.dao.RememberDao;
 import com.linchproject.app.dao.UserDao;
 import com.linchproject.app.models.Remember;
 import com.linchproject.app.models.User;
+import com.linchproject.framework.Context;
 import com.linchproject.http.CookieService;
 import com.linchproject.http.SessionService;
-import com.linchproject.mvc.Context;
 
 /**
  * @author Georg Schmidl
  */
-public class Controller extends com.linchproject.mvc.Controller {
+public class Controller extends com.linchproject.framework.Controller {
 
     protected SessionService sessionService;
     protected CookieService cookieService;
