@@ -18,16 +18,16 @@ public class LoginController extends Controller {
     protected PasswordEncryptor passwordEncryptor;
 
     public Result index(Params params) {
-        if (params.getValue("submit") != null) {
-            String username = params.getValue("username");
+        if (params.get("submit") != null) {
+            String username = params.get("username");
 
             User user = userDao.findByUsername(username);
             if (user != null) {
-                String password = params.getValue("password");
+                String password = params.get("password");
                 if (passwordEncryptor.checkPassword(password, user.getPassword())) {
-                    sessionService.setValue(Settings.SESSION_USER_KEY, params.getValue("username"));
+                    sessionService.setValue(Settings.SESSION_USER_KEY, params.get("username"));
 
-                    if ("true".equals(params.getValue("remember"))) {
+                    if ("true".equals(params.get("remember"))) {
                         String uuid = UUID.randomUUID().toString();
                         Remember remember = rememberDao.findByUserId(user.getId());
                         if (remember == null) {
@@ -42,19 +42,19 @@ public class LoginController extends Controller {
                         cookieService.removeCookie(Settings.COOKIE_NAME);
                     }
 
-                    return redirect(params.getValue("next"));
+                    return redirect(params.get("next"));
                 }
             }
             return render("login", context()
                     .put("hideNavigationLogin", true)
                     .put("error", "Username or password incorrect")
-                    .put("username", params.getValue("username"))
-                    .put("remember", "true".equals(params.getValue("remember")))
-                    .put("next", params.getValue("next")));
+                    .put("username", params.get("username"))
+                    .put("remember", "true".equals(params.get("remember")))
+                    .put("next", params.get("next")));
         } else {
             return render("login", context()
                     .put("hideNavigationLogin", true)
-                    .put("next", params.getValue("next") == null? "/": params.getValue("next")));
+                    .put("next", params.get("next") == null? "/": params.get("next")));
         }
     }
 

@@ -19,13 +19,13 @@ public class ProfileController extends SecureController {
 
     public Result edit(Params params) {
         Result result;
-        if (params.getValue("submit") != null) {
+        if (params.get("submit") != null) {
             User user = getUser();
-            user.setFirstName(params.getValue("firstName"));
-            user.setLastName(params.getValue("lastName"));
+            user.setFirstName(params.get("firstName"));
+            user.setLastName(params.get("lastName"));
 
-            if (params.getValue("email") != null) {
-                user.setEmail(params.getValue("email"));
+            if (params.get("email") != null) {
+                user.setEmail(params.get("email"));
             }
             userDao.save(user);
             result = redirect("/profile");
@@ -38,12 +38,12 @@ public class ProfileController extends SecureController {
 
     public Result changePassword(Params params) {
         Result result;
-        if (params.getValue("submit") != null) {
+        if (params.get("submit") != null) {
             User user = getUser();
 
-            String currentPassword = params.getValue("currentPassword");
-            String newPassword = params.getValue("newPassword");
-            String newPassword2 = params.getValue("newPassword2");
+            String currentPassword = params.get("currentPassword");
+            String newPassword = params.get("newPassword");
+            String newPassword2 = params.get("newPassword2");
 
             boolean currentPasswordsMatch = currentPassword != null &&
                     passwordEncryptor.checkPassword(currentPassword, user.getPassword());
