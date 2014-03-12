@@ -5,19 +5,11 @@ import com.linchproject.app.dao.RememberDao;
 import com.linchproject.app.dao.UserDao;
 import com.linchproject.app.models.Remember;
 import com.linchproject.app.models.User;
-import com.linchproject.framework.i18n.I18n;
-import com.linchproject.http.CookieService;
-import com.linchproject.http.LocaleService;
-import com.linchproject.http.SessionService;
 
 /**
  * @author Georg Schmidl
  */
 public class Controller extends com.linchproject.framework.Controller {
-
-    protected SessionService sessionService;
-    protected CookieService cookieService;
-    protected LocaleService localeService;
 
     protected UserDao userDao;
     protected RememberDao rememberDao;
@@ -25,7 +17,6 @@ public class Controller extends com.linchproject.framework.Controller {
     private boolean cookieChecked;
 
     private User user;
-    private I18n i18n;
 
     protected User getUser() {
         String username = getUsernameFromSessionOrCookie();
@@ -34,13 +25,6 @@ public class Controller extends com.linchproject.framework.Controller {
             user = userDao.findByUsername(username);
         }
         return user;
-    }
-
-    protected I18n getI18n() {
-        if (i18n == null) {
-            i18n = i18nService.getI18n(localeService.getLocale());
-        }
-        return i18n;
     }
 
     private String getUsernameFromSessionOrCookie() {
@@ -74,18 +58,6 @@ public class Controller extends com.linchproject.framework.Controller {
                         return getI18n().getText(input);
                     }
                 });
-    }
-
-    public void setSessionService(SessionService sessionService) {
-        this.sessionService = sessionService;
-    }
-
-    public void setCookieService(CookieService cookieService) {
-        this.cookieService = cookieService;
-    }
-
-    public void setLocaleService(LocaleService localeService) {
-        this.localeService = localeService;
     }
 
     public void setUserDao(UserDao userDao) {
