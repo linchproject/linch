@@ -13,12 +13,12 @@
         <dependency>
             <groupId>com.linchproject</groupId>
             <artifactId>linch-servlet</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
         <dependency>
             <groupId>com.linchproject</groupId>
             <artifactId>linch-framework</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
 
         <dependency>
