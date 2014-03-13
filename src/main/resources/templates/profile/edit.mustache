@@ -4,25 +4,25 @@
 
 <form class="form-horizontal" role="form" action="{{#path}}.{{/path}}" method="post">
     <div class="form-group">
-        <label class="col-sm-3 control-label">{{#i18n}}linch.username{{/i18n}}</label>
+        <label class="col-sm-3 control-label">{{#i18n}}linch.user.username{{/i18n}}</label>
         <div class="col-sm-5">
             <p class="form-control-static">{{user.username}}</p>
         </div>
     </div>
     <div class="form-group">
-        <label for="firstName" class="col-sm-3 control-label">{{#i18n}}linch.first.name{{/i18n}}</label>
+        <label for="firstName" class="col-sm-3 control-label">{{#i18n}}linch.user.first.name{{/i18n}}</label>
         <div class="col-sm-5">
             <input type="text" class="form-control" id="firstName" name="firstName" value="{{user.firstName}}">
         </div>
     </div>
     <div class="form-group">
-        <label for="lastName" class="col-sm-3 control-label">{{#i18n}}linch.last.name{{/i18n}}</label>
+        <label for="lastName" class="col-sm-3 control-label">{{#i18n}}linch.user.last.name{{/i18n}}</label>
         <div class="col-sm-5">
             <input type="text" class="form-control" id="lastName" name="lastName" value="{{user.lastName}}">
         </div>
     </div>
     <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">{{#i18n}}linch.email{{/i18n}}</label>
+        <label for="email" class="col-sm-3 control-label">{{#i18n}}linch.user.email{{/i18n}}</label>
         <div class="col-sm-5">
             <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" required>
         </div>
