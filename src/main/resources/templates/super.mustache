@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
 
-    <title>{{$title}}Linch{{/title}}</title>
+    <title>{{$title}}{{#i18n}}linch{{/i18n}}{{/title}}</title>
 
     <link href="{{#path}}/assets/css/bootstrap.min.css{{/path}}" rel="stylesheet">
     <link href="{{#path}}/assets/css/linch.css{{/path}}" rel="stylesheet">
@@ -19,13 +19,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Linch</a>
+            <a class="navbar-brand" href="/">{{#i18n}}linch{{/i18n}}</a>
         </div>
 
         <div class="collapse navbar-collapse">
@@ -40,7 +34,7 @@
             {{^user}}
                 {{^hideNavigationLogin}}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{#path}}/login{{/path}}">Sign in</a></li>
+                        <li><a href="{{#path}}/login{{/path}}">{{#i18n}}linch.sign.in{{/i18n}}</a></li>
                     </ul>
                 {{/hideNavigationLogin}}
             {{/user}}
@@ -50,10 +44,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.fullName}}{{^user.fullName}}{{user.username}}{{/user.fullName}} <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{#path}}/profile{{/path}}">Profile</a></li>
-                            <li><a href="{{#path}}/admin{{/path}}">Admin</a></li>
+                            <li><a href="{{#path}}/profile{{/path}}">{{#i18n}}linch.profile{{/i18n}}</a></li>
+                            <li><a href="{{#path}}/admin{{/path}}">{{#i18n}}linch.admin{{/i18n}}</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{#path}}/logout{{/path}}">Logout</a></li>
+                            <li><a href="{{#path}}/logout{{/path}}">{{#i18n}}linch.sign.out{{/i18n}}</a></li>
                         </ul>
                     </li>
                 </ul>
