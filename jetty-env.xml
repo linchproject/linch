@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="linch" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>jdbc/linch</Arg>
+        <Arg>
+            <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <Set name="driverClass">com.mysql.jdbc.Driver</Set>
+                <Set name="jdbcUrl">jdbc:mysql://localhost/linch</Set>
+                <Set name="user">user</Set>
+                <Set name="password">password</Set>
+                <Set name="testConnectionOnCheckout">true</Set>
+                <Set name="preferredTestQuery">SELECT 1</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>
