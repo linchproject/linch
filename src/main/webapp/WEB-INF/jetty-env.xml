@@ -5,13 +5,10 @@
     <New id="linch" class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg>jdbc/linch</Arg>
         <Arg>
-            <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
-                <Set name="driverClass">com.mysql.jdbc.Driver</Set>
-                <Set name="jdbcUrl">jdbc:mysql://localhost/linch?autoReconnect=true</Set>
-                <Set name="user">user</Set>
-                <Set name="password">password</Set>
-                <Set name="testConnectionOnCheckout">true</Set>
-                <Set name="preferredTestQuery">SELECT 1</Set>
+            <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+                <Set name="Url">jdbc:mysql://localhost/linch?autoReconnect=true</Set>
+                <Set name="User">user</Set>
+                <Set name="Password">password</Set>
             </New>
         </Arg>
     </New>
