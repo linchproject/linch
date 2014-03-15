@@ -5,6 +5,12 @@
 
     <display-name>Linch</display-name>
 
+    <resource-ref>
+        <res-ref-name>jdbc/linch</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
     <servlet>
         <servlet-name>linch-dispatcher</servlet-name>
         <servlet-class>com.linchproject.servlet.DispatcherServlet</servlet-class>
