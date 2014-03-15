@@ -1,4 +1,4 @@
-package com.linchproject.app.controllers;
+package com.linchproject.linch.controllers;
 
 import com.linchproject.core.Controller;
 import com.linchproject.core.Params;

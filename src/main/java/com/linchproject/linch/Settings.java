@@ -1,4 +1,4 @@
-package com.linchproject.app;
+package com.linchproject.linch;
 
 /**
  * @author Georg Schmidl

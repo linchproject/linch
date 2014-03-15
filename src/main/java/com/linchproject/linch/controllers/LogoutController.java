@@ -1,7 +1,7 @@
-package com.linchproject.app.controllers;
+package com.linchproject.linch.controllers;
 
-import com.linchproject.app.Controller;
-import com.linchproject.app.Settings;
+import com.linchproject.linch.Controller;
+import com.linchproject.linch.Settings;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 

@@ -1,9 +1,9 @@
-package com.linchproject.app.controllers;
+package com.linchproject.linch.controllers;
 
-import com.linchproject.app.Controller;
-import com.linchproject.app.Settings;
-import com.linchproject.app.models.Remember;
-import com.linchproject.app.models.User;
+import com.linchproject.linch.Controller;
+import com.linchproject.linch.Settings;
+import com.linchproject.linch.models.Remember;
+import com.linchproject.linch.models.User;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 import org.jasypt.util.password.PasswordEncryptor;

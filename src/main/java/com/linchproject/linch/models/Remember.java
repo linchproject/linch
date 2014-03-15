@@ -1,4 +1,4 @@
-package com.linchproject.app.models;
+package com.linchproject.linch.models;
 
 /**
  * @author Georg Schmidl

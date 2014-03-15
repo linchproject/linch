@@ -6,7 +6,6 @@
 
     <groupId>com.linchproject</groupId>
     <artifactId>linch</artifactId>
-    <packaging>war</packaging>
     <version>0.1-SNAPSHOT</version>
 
     <dependencies>

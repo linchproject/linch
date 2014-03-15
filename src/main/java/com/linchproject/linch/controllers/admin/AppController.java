@@ -1,6 +1,6 @@
-package com.linchproject.app.controllers.admin;
+package com.linchproject.linch.controllers.admin;
 
-import com.linchproject.app.AdministratorController;
+import com.linchproject.linch.AdministratorController;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 

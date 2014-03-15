@@ -1,4 +1,4 @@
-package com.linchproject.app;
+package com.linchproject.linch;
 
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;

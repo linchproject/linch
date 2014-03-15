@@ -1,10 +1,10 @@
-package com.linchproject.app;
+package com.linchproject.linch;
 
 import com.github.mustachejava.TemplateFunction;
-import com.linchproject.app.dao.RememberDao;
-import com.linchproject.app.dao.UserDao;
-import com.linchproject.app.models.Remember;
-import com.linchproject.app.models.User;
+import com.linchproject.linch.dao.RememberDao;
+import com.linchproject.linch.dao.UserDao;
+import com.linchproject.linch.models.Remember;
+import com.linchproject.linch.models.User;
 
 /**
  * @author Georg Schmidl
