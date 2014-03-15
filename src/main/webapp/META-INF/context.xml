@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+
+    <Resource name="jdbc/linch" auth="Container" driverClass="com.mysql.jdbc.Driver"
+              jdbcUrl="jdbc:mysql://localhost/linch?autoReconnect=true"
+              user="user"
+              password="password"
+              maxPoolSize="50"
+              minPoolSize="10"
+              acquireIncrement="10"
+              type="com.mchange.v2.c3p0.ComboPooledDataSource"
+              factory="org.apache.naming.factory.BeanFactory"
+              testConnectionOnCheckout="true"
+              preferredTestQuery="SELECT 1"
+              />
+
+</Context>
