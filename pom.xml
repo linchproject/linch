@@ -54,7 +54,6 @@
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
-                        <jettyEnvXml>${basedir}/jetty-env.xml</jettyEnvXml>
                     </webApp>
                     <systemProperties>
                         <systemProperty>
