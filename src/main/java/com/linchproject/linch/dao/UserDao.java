@@ -31,36 +31,36 @@ public class UserDao extends Dao<User> implements Initializing {
     }
 
     @Override
-    public void save(User object) {
-        if (object.getId() == null) {
-            object.setId(query("insert into user ( username, password, first_name, last_name, email ) " +
+    public void save(User user) {
+        if (user.getId() == null) {
+            user.setId(query("insert into user ( username, password, first_name, last_name, email ) " +
                     "values ( :username, :password, :firstName, :lastName, :email )", true)
-                    .addParameter("username", object.getUsername()) //.bind(model) not possible because of fullName
-                    .addParameter("password", object.getPassword())
-                    .addParameter("firstName", object.getFirstName())
-                    .addParameter("lastName", object.getLastName())
-                    .addParameter("email", object.getEmail())
+                    .addParameter("username", user.getUsername()) //.bind(model) not possible because of fullName
+                    .addParameter("password", user.getPassword())
+                    .addParameter("firstName", user.getFirstName())
+                    .addParameter("lastName", user.getLastName())
+                    .addParameter("email", user.getEmail())
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         } else {
-            object.setId(query("update user set username = :username, password = :password, " +
+            user.setId(query("update user set username = :username, password = :password, " +
                     "first_name = :firstName, last_name = :lastName, email = :email where id = :id", true)
-                    .addParameter("id", object.getId()) //.bind(model) not possible because of fullName
-                    .addParameter("username", object.getUsername())
-                    .addParameter("password", object.getPassword())
-                    .addParameter("firstName", object.getFirstName())
-                    .addParameter("lastName", object.getLastName())
-                    .addParameter("email", object.getEmail())
+                    .addParameter("id", user.getId()) //.bind(model) not possible because of fullName
+                    .addParameter("username", user.getUsername())
+                    .addParameter("password", user.getPassword())
+                    .addParameter("firstName", user.getFirstName())
+                    .addParameter("lastName", user.getLastName())
+                    .addParameter("email", user.getEmail())
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         }
     }
 
     @Override
-    public void delete(User object) {
-        if (object.getId() != null) {
+    public void delete(User user) {
+        if (user.getId() != null) {
             query("delete from user where id = :id")
-                    .addParameter("id", object.getId())
+                    .addParameter("id", user.getId())
                     .executeUpdate();
         }
     }
@@ -78,14 +78,11 @@ public class UserDao extends Dao<User> implements Initializing {
                 "key username (username) " +
                 ") engine=InnoDB default charset=utf8").executeUpdate();
 
-        User user = query("select id from user").executeAndFetchFirst(User.class);
-
-        if (user == null) {
-            query("insert into user ( username, password ) " +
-                    "values ( :username, :password )")
-                    .addParameter("username", "admin")
-                    .addParameter("password", "N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J")
-                    .executeUpdate();
+        if (findAll().isEmpty()) {
+            User user = new User();
+            user.setUsername("admin");
+            user.setPassword("N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J");
+            save(user);
         }
     }
 }
