@@ -43,11 +43,11 @@ public class ProfileController extends SecureController {
 
             String currentPassword = params.get("currentPassword");
             String newPassword = params.get("newPassword");
-            String newPassword2 = params.get("newPassword2");
+            String confirmNewPassword = params.get("confirmNewPassword");
 
             boolean currentPasswordsMatch = currentPassword != null &&
                     passwordEncryptor.checkPassword(currentPassword, user.getPassword());
-            boolean newPasswordsMatch = newPassword != null && newPassword.equals(newPassword2);
+            boolean newPasswordsMatch = newPassword != null && newPassword.equals(confirmNewPassword);
 
             if (currentPasswordsMatch && newPasswordsMatch) {
                 user.setPassword(passwordEncryptor.encryptPassword(newPassword));
