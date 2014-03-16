@@ -50,7 +50,6 @@ public class UsersController extends AdministratorController {
             form.fill(params.getMap()).validate();
 
             if (form.isValid()) {
-                user.setUsername(form.get("username").get());
                 user.setFirstName(form.get("firstName").get());
                 user.setLastName(form.get("lastName").get());
                 user.setEmail(form.get("email").get());

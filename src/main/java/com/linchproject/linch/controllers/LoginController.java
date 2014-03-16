@@ -42,7 +42,7 @@ public class LoginController extends Controller {
                         cookieService.removeCookie(Settings.COOKIE_NAME);
                     }
 
-                    return redirect(params.get("next"));
+                    return redirect(params.get("next") != null? params.get("next"): "/");
                 }
             }
             return render("login", context()
@@ -50,11 +50,11 @@ public class LoginController extends Controller {
                     .put("error", "Username or password incorrect")
                     .put("username", params.get("username"))
                     .put("remember", "true".equals(params.get("remember")))
-                    .put("next", params.get("next")));
+                    .put("next", params.get("next") != null? params.get("next"): "/"));
         } else {
             return render("login", context()
                     .put("hideNavigationLogin", true)
-                    .put("next", params.get("next") == null? "/": params.get("next")));
+                    .put("next", params.get("next") != null? params.get("next"): "/"));
         }
     }
 
