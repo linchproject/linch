@@ -10,7 +10,7 @@ public abstract class SecureController extends Controller {
 
     public Result _(Params params) {
         Result result;
-        if (isLoggedIn()) {
+        if (isActiveUser()) {
             result = dispatch(route);
         } else {
             result = redirect("/login?next=" + route.getPath());
@@ -20,5 +20,9 @@ public abstract class SecureController extends Controller {
 
     protected boolean isLoggedIn() {
         return getUser() != null;
+    }
+
+    protected boolean isActiveUser() {
+        return isLoggedIn() && groupDao.isMember(getUserGroup(), getUser());
     }
 }

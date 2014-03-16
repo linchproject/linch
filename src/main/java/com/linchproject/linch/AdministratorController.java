@@ -10,7 +10,7 @@ public abstract class AdministratorController extends SecureController {
 
     public Result _(Params params) {
         Result result;
-        if (isPermitted()) {
+        if (isAdministrator()) {
             result = dispatch(route);
         } else if (isLoggedIn()) {
             result = error("Not permitted");
@@ -20,7 +20,7 @@ public abstract class AdministratorController extends SecureController {
         return result;
     }
 
-    protected boolean isPermitted() {
-        return isLoggedIn() && "admin".equals(getUser().getUsername());
+    protected boolean isAdministrator() {
+        return isLoggedIn() && isActiveUser() && groupDao.isMember(getAdministratorGroup(), getUser());
     }
 }

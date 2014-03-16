@@ -1,8 +1,10 @@
 package com.linchproject.linch;
 
 import com.github.mustachejava.TemplateFunction;
+import com.linchproject.linch.dao.GroupDao;
 import com.linchproject.linch.dao.RememberDao;
 import com.linchproject.linch.dao.UserDao;
+import com.linchproject.linch.entities.Group;
 import com.linchproject.linch.entities.Remember;
 import com.linchproject.linch.entities.User;
 
@@ -13,10 +15,13 @@ public class Controller extends com.linchproject.framework.Controller {
 
     protected UserDao userDao;
     protected RememberDao rememberDao;
+    protected GroupDao groupDao;
 
     private boolean cookieChecked;
 
     private User user;
+    private Group userGroup;
+    private Group administratorGroup;
 
     protected User getUser() {
         String username = getUsernameFromSessionOrCookie();
@@ -48,6 +53,20 @@ public class Controller extends com.linchproject.framework.Controller {
         return userId;
     }
 
+    public Group getUserGroup() {
+        if (userGroup == null) {
+            userGroup = groupDao.findByName("users");
+        }
+        return userGroup;
+    }
+
+    public Group getAdministratorGroup() {
+        if (administratorGroup == null) {
+            administratorGroup = groupDao.findByName("administrators");
+        }
+        return administratorGroup;
+    }
+
     @Override
     protected Context context() {
         return super.context()
@@ -66,5 +85,9 @@ public class Controller extends com.linchproject.framework.Controller {
 
     public void setRememberDao(RememberDao rememberDao) {
         this.rememberDao = rememberDao;
+    }
+
+    public void setGroupDao(GroupDao groupDao) {
+        this.groupDao = groupDao;
     }
 }
