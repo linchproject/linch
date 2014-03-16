@@ -16,7 +16,7 @@
     {{#users}}
         <tr>
             <td>{{id}}</td>
-            <td><a href="{{#path}}users/view?username={{username}}{{/path}}">{{username}}</a></td>
+            <td><a href="{{#path}}view?username={{username}}{{/path}}">{{username}}</a></td>
             <td>{{firstName}}</td>
             <td>{{lastName}}</td>
             <td>{{email}}</td>
@@ -30,6 +30,6 @@
     </tbody>
 </table>
 
-<a href="users/create">{{#i18n}}linch.users.add.user{{/i18n}}</a>
+<a href="{{#path}}create{{/path}}">{{#i18n}}linch.users.add.user{{/i18n}}</a>
 
 {{/inner}}{{/../super}}
