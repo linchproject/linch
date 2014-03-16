@@ -1,11 +1,11 @@
-package com.linchproject.linch.models;
+package com.linchproject.linch.entities;
+
+import com.linchproject.framework.db.Entity;
 
 /**
  * @author Georg Schmidl
  */
-public class User {
-
-    private Long id;
+public class User extends Entity {
 
     private String username;
     private String password;
@@ -14,14 +14,6 @@ public class User {
     private String lastName;
 
     private String email;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

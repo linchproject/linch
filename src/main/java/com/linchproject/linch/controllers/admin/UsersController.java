@@ -9,7 +9,7 @@ import com.linchproject.forms.validators.EqualsValidator;
 import com.linchproject.forms.validators.RequiredValidator;
 import com.linchproject.linch.AdministratorController;
 import com.linchproject.linch.I18nForm;
-import com.linchproject.linch.models.User;
+import com.linchproject.linch.entities.User;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**

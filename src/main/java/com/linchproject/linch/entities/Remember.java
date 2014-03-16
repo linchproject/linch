@@ -1,22 +1,14 @@
-package com.linchproject.linch.models;
+package com.linchproject.linch.entities;
+
+import com.linchproject.framework.db.Entity;
 
 /**
  * @author Georg Schmidl
  */
-public class Remember {
-
-    Long id;
+public class Remember extends Entity {
 
     String uuid;
     Long userId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUuid() {
         return uuid;

@@ -3,8 +3,8 @@ package com.linchproject.linch;
 import com.github.mustachejava.TemplateFunction;
 import com.linchproject.linch.dao.RememberDao;
 import com.linchproject.linch.dao.UserDao;
-import com.linchproject.linch.models.Remember;
-import com.linchproject.linch.models.User;
+import com.linchproject.linch.entities.Remember;
+import com.linchproject.linch.entities.User;
 
 /**
  * @author Georg Schmidl

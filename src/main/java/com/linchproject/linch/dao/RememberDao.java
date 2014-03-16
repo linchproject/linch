@@ -1,6 +1,6 @@
 package com.linchproject.linch.dao;
 
-import com.linchproject.linch.models.Remember;
+import com.linchproject.linch.entities.Remember;
 import com.linchproject.framework.db.Dao;
 import com.linchproject.ioc.Initializing;
 
