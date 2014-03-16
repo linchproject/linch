@@ -5,7 +5,6 @@
 <table class="table">
     <thead>
     <tr>
-        <th>#</th>
         <th>{{#i18n}}linch.user.username{{/i18n}}</th>
         <th>{{#i18n}}linch.user.first.name{{/i18n}}</th>
         <th>{{#i18n}}linch.user.last.name{{/i18n}}</th>
@@ -15,7 +14,6 @@
     <tbody>
     {{#users}}
         <tr>
-            <td>{{id}}</td>
             <td><a href="{{#path}}view?username={{username}}{{/path}}">{{username}}</a></td>
             <td>{{firstName}}</td>
             <td>{{lastName}}</td>

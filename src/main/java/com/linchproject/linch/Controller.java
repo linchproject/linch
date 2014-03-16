@@ -55,14 +55,14 @@ public class Controller extends com.linchproject.framework.Controller {
 
     public Group getUserGroup() {
         if (userGroup == null) {
-            userGroup = groupDao.findByName("users");
+            userGroup = groupDao.findByGroupname("users");
         }
         return userGroup;
     }
 
     public Group getAdministratorGroup() {
         if (administratorGroup == null) {
-            administratorGroup = groupDao.findByName("administrators");
+            administratorGroup = groupDao.findByGroupname("administrators");
         }
         return administratorGroup;
     }

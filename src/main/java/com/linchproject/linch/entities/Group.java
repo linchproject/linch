@@ -7,13 +7,13 @@ import com.linchproject.framework.db.Entity;
  */
 public class Group extends Entity {
 
-    private String name;
+    private String groupname;
 
-    public String getName() {
-        return name;
+    public String getGroupname() {
+        return groupname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 }

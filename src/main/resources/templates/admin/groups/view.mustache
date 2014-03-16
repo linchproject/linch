@@ -1,0 +1,40 @@
+{{<../super}}{{$inner}}
+
+<h1 class="page-header">{{#i18n}}linch.groups.group.members{{/i18n}}: {{group.groupname}}</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{#i18n}}linch.user.username{{/i18n}}</th>
+        <th>{{#i18n}}linch.user.first.name{{/i18n}}</th>
+        <th>{{#i18n}}linch.user.last.name{{/i18n}}</th>
+        <th>{{#i18n}}linch.user.email{{/i18n}}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#members}}
+        <tr>
+            <td><a href="{{#path}}/admin/users/view?username={{username}}{{/path}}">{{username}}</a></td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{email}}</td>
+            <td>
+                <a href="{{#path}}removeMember?groupname={{group.groupname}}&username={{username}}{{/path}}">
+                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                </a>
+            </td>
+        </tr>
+    {{/members}}
+    {{^members}}
+        <tr>
+            <td colspan="4">{{#i18n}}linch.groups.no.members{{/i18n}}</td>
+        </tr>
+    {{/members}}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{#path}}addMember?groupname={{group.groupname}}{{/path}}">{{#i18n}}linch.groups.add.member{{/i18n}}</a>
+<a class="btn btn-danger" href="{{#path}}delete?groupname={{group.groupname}}{{/path}}">{{#i18n}}linch.form.delete{{/i18n}}</a>
+
+{{/inner}}{{/../super}}

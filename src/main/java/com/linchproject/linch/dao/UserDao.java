@@ -26,7 +26,7 @@ public class UserDao extends Dao<User> implements Initializing {
 
     @Override
     public List<User> findAll() {
-        return query("select id, username, password, first_name, last_name, email from user")
+        return query("select id, username, password, first_name, last_name, email from user order by username")
                 .executeAndFetch(User.class);
     }
 
