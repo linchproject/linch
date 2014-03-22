@@ -31,17 +31,17 @@ public class ProfileController extends SecureController {
                 .addField("firstName")
                 .addField("lastName")
                 .addField("email")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new EmailValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new EmailValidator())
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
-                user.setFirstName(form.get("firstName").get());
-                user.setLastName(form.get("lastName").get());
-                user.setEmail(form.get("email").get());
+                user.setFirstName(form.get("firstName").getValue());
+                user.setLastName(form.get("lastName").getValue());
+                user.setEmail(form.get("email").getValue());
                 userDao.save(user);
 
                 result = redirect("index");
@@ -68,20 +68,20 @@ public class ProfileController extends SecureController {
 
         Form form = new I18nForm(getI18n())
                 .addField("currentPassword")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new PasswordValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new PasswordValidator())
                 .addField("newPassword")
-                    .addValidator(new RequiredValidator())
+                .addValidator(new RequiredValidator())
                 .addField("confirmNewPassword")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new EqualsValidator("newPassword"))
+                .addValidator(new RequiredValidator())
+                .addValidator(new EqualsValidator("newPassword"))
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
-                user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").get()));
+                user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));
                 userDao.save(user);
                 result = render("profile/changePassword", context()
                         .put("navChangePassword", true)
@@ -103,7 +103,7 @@ public class ProfileController extends SecureController {
     public class PasswordValidator implements Validator {
 
         @Override
-        public String getKey() {
+        public String getErrorKey() {
             return "password.incorrect";
         }
 

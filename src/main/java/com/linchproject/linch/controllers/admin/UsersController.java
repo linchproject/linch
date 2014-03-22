@@ -42,17 +42,17 @@ public class UsersController extends AdministratorController {
                 .addField("firstName")
                 .addField("lastName")
                 .addField("email")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new EmailValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new EmailValidator())
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
-                user.setFirstName(form.get("firstName").get());
-                user.setLastName(form.get("lastName").get());
-                user.setEmail(form.get("email").get());
+                user.setFirstName(form.get("firstName").getValue());
+                user.setLastName(form.get("lastName").getValue());
+                user.setEmail(form.get("email").getValue());
                 userDao.save(user);
 
                 result = redirect("view?username=" + user.getUsername());
@@ -79,29 +79,29 @@ public class UsersController extends AdministratorController {
 
         Form form = new I18nForm(getI18n())
                 .addField("username")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new UserExistsValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new UserExistsValidator())
                 .addField("firstName")
                 .addField("lastName")
                 .addField("email")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new EmailValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new EmailValidator())
                 .addField("password")
-                    .addValidator(new RequiredValidator())
+                .addValidator(new RequiredValidator())
                 .addField("confirmPassword")
-                    .addValidator(new EqualsValidator("password"))
+                .addValidator(new EqualsValidator("password"))
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
                 User user = new User();
-                user.setUsername(form.get("username").get());
-                user.setFirstName(form.get("firstName").get());
-                user.setLastName(form.get("lastName").get());
-                user.setEmail(form.get("email").get());
-                user.setPassword(passwordEncryptor.encryptPassword(form.get("password").get()));
+                user.setUsername(form.get("username").getValue());
+                user.setFirstName(form.get("firstName").getValue());
+                user.setLastName(form.get("lastName").getValue());
+                user.setEmail(form.get("email").getValue());
+                user.setPassword(passwordEncryptor.encryptPassword(form.get("password").getValue()));
                 userDao.save(user);
 
                 result = redirect("view?username=" + user.getUsername());
@@ -141,7 +141,7 @@ public class UsersController extends AdministratorController {
 
     public class UserExistsValidator implements Validator {
         @Override
-        public String getKey() {
+        public String getErrorKey() {
             return "user.exists";
         }
 

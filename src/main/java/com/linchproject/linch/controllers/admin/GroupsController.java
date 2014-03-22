@@ -38,16 +38,16 @@ public class GroupsController extends AdministratorController {
 
         Form form = new I18nForm(getI18n())
                 .addField("groupname")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new GroupExistsValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new GroupExistsValidator())
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
                 Group group = new Group();
-                group.setGroupname(form.get("groupname").get());
+                group.setGroupname(form.get("groupname").getValue());
                 groupDao.save(group);
 
                 result = redirect("view?groupname=" + group.getGroupname());
@@ -87,15 +87,15 @@ public class GroupsController extends AdministratorController {
 
         Form form = new I18nForm(getI18n())
                 .addField("username")
-                    .addValidator(new RequiredValidator())
-                    .addValidator(new UserNotExistsValidator())
+                .addValidator(new RequiredValidator())
+                .addValidator(new UserNotExistsValidator())
                 .form();
 
         if (params.get("submit") != null) {
-            form.fill(params.getMap()).validate();
+            form.bind(params.getMap()).validate();
 
             if (form.isValid()) {
-                User user = userDao.findByUsername(form.get("username").get());
+                User user = userDao.findByUsername(form.get("username").getValue());
                 groupDao.addMember(group, user);
 
                 result = redirect("view?groupname=" + group.getGroupname());
@@ -125,7 +125,7 @@ public class GroupsController extends AdministratorController {
 
     public class GroupExistsValidator implements Validator {
         @Override
-        public String getKey() {
+        public String getErrorKey() {
             return "group.exists";
         }
 
@@ -139,7 +139,7 @@ public class GroupsController extends AdministratorController {
 
     public class UserNotExistsValidator implements Validator {
         @Override
-        public String getKey() {
+        public String getErrorKey() {
             return "user.not.exists";
         }
 
