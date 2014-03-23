@@ -24,71 +24,71 @@ public class ProfileController extends SecureController {
     }
 
     public Result edit(Params params) {
-        Result result;
+        return render("profile/edit", context()
+                .put("navIndex", true)
+                .put("form", getEditForm()
+                        .put("firstName", getUser().getFirstName())
+                        .put("lastName", getUser().getLastName())
+                        .put("email", getUser().getEmail())));
+    }
+
+    public Result doEdit(Params params) {
         User user = getUser();
+        Form form = getEditForm();
 
-        Form form = new I18nForm(getI18n())
-                .addField("firstName")
-                .addField("lastName")
-                .addField("email", new RequiredValidator(), new EmailValidator());
+        form.bind(params.getMap()).validate();
 
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
+        if (form.isValid()) {
+            user.setFirstName(form.get("firstName").getValue());
+            user.setLastName(form.get("lastName").getValue());
+            user.setEmail(form.get("email").getValue());
+            userDao.save(user);
 
-            if (form.isValid()) {
-                user.setFirstName(form.get("firstName").getValue());
-                user.setLastName(form.get("lastName").getValue());
-                user.setEmail(form.get("email").getValue());
-                userDao.save(user);
-
-                result = redirect("index");
-            } else {
-                result = render("profile/edit", context()
-                        .put("navIndex", true)
-                        .put("form", form));
-            }
-
-        } else {
-            result = render("profile/edit", context()
-                    .put("navIndex", true)
-                    .put("form", form
-                            .put("firstName", user.getFirstName())
-                            .put("lastName", user.getLastName())
-                            .put("email", user.getEmail())));
+            return redirect("index");
         }
-        return result;
+
+        return render("profile/edit", context()
+                .put("navIndex", true)
+                .put("form", form));
     }
 
     public Result changePassword(Params params) {
-        Result result;
-        User user = getUser();
+        return render("profile/changePassword", context()
+                .put("navChangePassword", true)
+                .put("form", getChangePasswordForm()));
+    }
 
-        Form form = new I18nForm(getI18n())
+    public Result doChangePassword(Params params) {
+        User user = getUser();
+        Form form = getChangePasswordForm();
+
+        form.bind(params.getMap()).validate();
+
+        if (form.isValid()) {
+            user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));
+            userDao.save(user);
+            return render("profile/changePassword", context()
+                    .put("navChangePassword", true)
+                    .put("success", true));
+        }
+
+        return render("profile/changePassword", context()
+                .put("navChangePassword", true)
+                .put("form", form));
+    }
+
+    protected Form getEditForm() {
+        return new I18nForm(getI18n())
+                .addField("firstName")
+                .addField("lastName")
+                .addField("email", new RequiredValidator(), new EmailValidator());
+    }
+
+    protected Form getChangePasswordForm() {
+        return new I18nForm(getI18n())
                 .addField("currentPassword", new RequiredValidator(), new PasswordValidator())
                 .addField("newPassword", new RequiredValidator())
                 .addField("confirmNewPassword", new RequiredValidator(), new EqualsValidator("newPassword"));
-
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
-
-            if (form.isValid()) {
-                user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));
-                userDao.save(user);
-                result = render("profile/changePassword", context()
-                        .put("navChangePassword", true)
-                        .put("success", true));
-            } else {
-                result = render("profile/changePassword", context()
-                        .put("navChangePassword", true)
-                        .put("form", form));
-            }
-
-        } else {
-            result = render("profile/changePassword", context()
-                    .put("navChangePassword", true)
-                    .put("form", form));
-        }
-        return result;
     }
 
     public class PasswordValidator implements Validator {

@@ -34,79 +34,70 @@ public class GroupsController extends AdministratorController {
     }
 
     public Result create(Params params) {
-        Result result;
+        return render("admin/groups/create", context()
+                .put("navGroups", true)
+                .put("form", getCreateForm()));
+    }
 
-        Form form = new I18nForm(getI18n())
-                .addField("groupname", new RequiredValidator(), new GroupExistsValidator());
+    public Result doCreate(Params params) {
+        Form form = getCreateForm();
 
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
+        form.bind(params.getMap()).validate();
 
-            if (form.isValid()) {
-                Group group = new Group();
-                group.setGroupname(form.get("groupname").getValue());
-                groupDao.save(group);
+        if (form.isValid()) {
+            Group group = new Group();
+            group.setGroupname(form.get("groupname").getValue());
+            groupDao.save(group);
 
-                result = redirect("view?groupname=" + group.getGroupname());
-            } else {
-                result = render("admin/groups/create", context()
-                        .put("navGroups", true)
-                        .put("form", form));
-            }
-
-        } else {
-            result = render("admin/groups/create", context()
-                    .put("navGroups", true)
-                    .put("form", form));
+            return redirect("view?groupname=" + group.getGroupname());
         }
-        return result;
+
+        return render("admin/groups/create", context()
+                .put("navGroups", true)
+                .put("form", form));
     }
 
     public Result delete(Params params) {
-        Result result;
         Group group = groupDao.findByGroupname(params.get("groupname"));
 
-        if (params.get("submit") != null) {
-            groupDao.delete(group);
-            result = redirect("index");
+        return render("admin/groups/delete", context()
+                .put("navGroups", true)
+                .put("group", group));
+    }
 
-        } else {
-            result = render("admin/groups/delete", context()
-                    .put("navGroups", true)
-                    .put("group", group));
-        }
-        return result;
+    public Result doDelete(Params params) {
+        Group group = groupDao.findByGroupname(params.get("groupname"));
+        groupDao.delete(group);
+
+        return redirect("index");
     }
 
     public Result addMember(Params params) {
-        Result result;
         Group group = groupDao.findByGroupname(params.get("groupname"));
 
-        Form form = new I18nForm(getI18n())
-                .addField("username", new RequiredValidator(), new UserNotExistsValidator());
+        return render("admin/groups/addMember", context()
+                .put("navGroups", true)
+                .put("group", group)
+                .put("form", getAddMemberForm()));
+    }
 
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
+    public Result doAddMember(Params params) {
+        Group group = groupDao.findByGroupname(params.get("groupname"));
+        Form form = getAddMemberForm();
 
-            if (form.isValid()) {
-                User user = userDao.findByUsername(form.get("username").getValue());
-                groupDao.addMember(group, user);
+        form.bind(params.getMap()).validate();
 
-                result = redirect("view?groupname=" + group.getGroupname());
-            } else {
-                result = render("admin/groups/addMember", context()
-                        .put("navGroups", true)
-                        .put("group", group)
-                        .put("form", form));
-            }
+        if (form.isValid()) {
+            User user = userDao.findByUsername(form.get("username").getValue());
+            groupDao.addMember(group, user);
 
-        } else {
-            result = render("admin/groups/addMember", context()
-                    .put("navGroups", true)
-                    .put("group", group)
-                    .put("form", form));
+            return redirect("view?groupname=" + group.getGroupname());
         }
-        return result;
+
+        return render("admin/groups/addMember", context()
+                .put("navGroups", true)
+                .put("group", group)
+                .put("form", form));
     }
 
     public Result removeMember(Params params) {
@@ -115,6 +106,16 @@ public class GroupsController extends AdministratorController {
         groupDao.removeMember(group, user);
 
         return redirect("view?groupname=" + group.getGroupname());
+    }
+
+    protected Form getCreateForm() {
+        return new I18nForm(getI18n())
+                .addField("groupname", new RequiredValidator(), new GroupExistsValidator());
+    }
+
+    protected Form getAddMemberForm() {
+        return new I18nForm(getI18n())
+                .addField("username", new RequiredValidator(), new UserNotExistsValidator());
     }
 
     public class GroupExistsValidator implements Validator {

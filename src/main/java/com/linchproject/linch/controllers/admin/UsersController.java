@@ -34,95 +34,96 @@ public class UsersController extends AdministratorController {
     }
 
     public Result edit(Params params) {
-        Result result;
         User user = userDao.findByUsername(params.get("username"));
 
-        Form form = new I18nForm(getI18n())
+        return render("admin/users/edit", context()
+                .put("navUsers", true)
+                .put("form", getEditForm()
+                        .put("username", user.getUsername())
+                        .put("firstName", user.getFirstName())
+                        .put("lastName", user.getLastName())
+                        .put("email", user.getEmail())));
+    }
+
+    public Result doEdit(Params params) {
+        User user = userDao.findByUsername(params.get("username"));
+        Form form = getEditForm();
+
+        form.bind(params.getMap()).validate();
+
+        if (form.isValid()) {
+            user.setFirstName(form.get("firstName").getValue());
+            user.setLastName(form.get("lastName").getValue());
+            user.setEmail(form.get("email").getValue());
+            userDao.save(user);
+
+            return redirect("view?username=" + user.getUsername());
+        }
+
+        return render("admin/users/edit", context()
+                .put("navUsers", true)
+                .put("form", form));
+    }
+
+    public Result create(Params params) {
+        return render("admin/users/create", context()
+                .put("navUsers", true)
+                .put("form", getCreateForm()));
+    }
+
+    public Result doCreate(Params params) {
+        Form form = getCreateForm();
+
+        form.bind(params.getMap()).validate();
+
+        if (form.isValid()) {
+            User user = new User();
+            user.setUsername(form.get("username").getValue());
+            user.setFirstName(form.get("firstName").getValue());
+            user.setLastName(form.get("lastName").getValue());
+            user.setEmail(form.get("email").getValue());
+            user.setPassword(passwordEncryptor.encryptPassword(form.get("password").getValue()));
+            userDao.save(user);
+
+            return redirect("view?username=" + user.getUsername());
+        }
+
+        return render("admin/users/create", context()
+                .put("navUsers", true)
+                .put("form", form));
+    }
+
+    public Result delete(Params params) {
+        User user = userDao.findByUsername(params.get("username"));
+
+        return render("admin/users/delete", context()
+                .put("navUsers", true)
+                .put("theUser", user));
+    }
+
+    public Result doDelete(Params params) {
+        User user = userDao.findByUsername(params.get("username"));
+        userDao.delete(user);
+
+        return redirect("index");
+    }
+
+    protected Form getEditForm() {
+        return new I18nForm(getI18n())
                 .addField("username")
                 .addField("firstName")
                 .addField("lastName")
                 .addField("email", new RequiredValidator(), new EmailValidator());
-
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
-
-            if (form.isValid()) {
-                user.setFirstName(form.get("firstName").getValue());
-                user.setLastName(form.get("lastName").getValue());
-                user.setEmail(form.get("email").getValue());
-                userDao.save(user);
-
-                result = redirect("view?username=" + user.getUsername());
-            } else {
-                result = render("admin/users/edit", context()
-                        .put("navUsers", true)
-                        .put("form", form));
-            }
-
-        } else {
-            result = render("admin/users/edit", context()
-                    .put("navUsers", true)
-                    .put("form", form
-                            .put("username", user.getUsername())
-                            .put("firstName", user.getFirstName())
-                            .put("lastName", user.getLastName())
-                            .put("email", user.getEmail())));
-        }
-        return result;
     }
 
-    public Result create(Params params) {
-        Result result;
-
-        Form form = new I18nForm(getI18n())
+    protected Form getCreateForm() {
+        return new I18nForm(getI18n())
                 .addField("username", new RequiredValidator(), new UserExistsValidator())
                 .addField("firstName")
                 .addField("lastName")
                 .addField("email", new RequiredValidator(), new EmailValidator())
                 .addField("password", new RequiredValidator())
                 .addField("confirmPassword", new EqualsValidator("password"));
-
-        if (params.get("submit") != null) {
-            form.bind(params.getMap()).validate();
-
-            if (form.isValid()) {
-                User user = new User();
-                user.setUsername(form.get("username").getValue());
-                user.setFirstName(form.get("firstName").getValue());
-                user.setLastName(form.get("lastName").getValue());
-                user.setEmail(form.get("email").getValue());
-                user.setPassword(passwordEncryptor.encryptPassword(form.get("password").getValue()));
-                userDao.save(user);
-
-                result = redirect("view?username=" + user.getUsername());
-            } else {
-                result = render("admin/users/create", context()
-                        .put("navUsers", true)
-                        .put("form", form));
-            }
-
-        } else {
-            result = render("admin/users/create", context()
-                    .put("navUsers", true)
-                    .put("form", form));
-        }
-        return result;
-    }
-
-    public Result delete(Params params) {
-        Result result;
-        User user = userDao.findByUsername(params.get("username"));
-
-        if (params.get("submit") != null) {
-            userDao.delete(user);
-            result = redirect("index");
-
-        } else {
-            result = render("admin/users/delete", context()
-                    .put("navUsers", true)
-                    .put("theUser", user));
-        }
-        return result;
     }
 
     public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {

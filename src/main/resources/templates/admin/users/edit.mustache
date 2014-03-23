@@ -2,7 +2,7 @@
 
 <h1 class="page-header">{{#i18n}}linch.users.edit.user{{/i18n}}: {{form.username}}</h1>
 
-<form class="form-horizontal" role="form" action="{{#path}}.{{/path}}" method="post">
+<form class="form-horizontal" role="form" action="{{#path}}doEdit{{/path}}" method="post">
     <input type="hidden" name="username" value="{{form.username}}">
 
     <div class="form-group">

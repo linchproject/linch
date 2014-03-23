@@ -2,7 +2,7 @@
 
 <h1 class="page-header">{{#i18n}}linch.users.delete.user{{/i18n}}: {{theUser.username}}</h1>
 
-<form class="form-horizontal" role="form" action="{{#path}}.{{/path}}" method="post">
+<form class="form-horizontal" role="form" action="{{#path}}doDelete{{/path}}" method="post">
     <input type="hidden" name="username" value="{{theUser.username}}">
 
     <div class="alert alert-danger">
