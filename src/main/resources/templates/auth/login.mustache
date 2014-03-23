@@ -5,7 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{#error}}
-                        <div class="alert alert-danger">{{error}}</div>
+                        <div class="alert alert-danger">{{#i18n}}linch.error.login{{/i18n}}</div>
                     {{/error}}
                     <form role="form" action="{{#path}}doLogin{{/path}}" method="post">
                         <fieldset>
