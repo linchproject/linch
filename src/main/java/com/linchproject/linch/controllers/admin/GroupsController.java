@@ -19,7 +19,7 @@ public class GroupsController extends AdministratorController {
 
 
     public Result index(Params params) {
-        return render("admin/groups/index", context()
+        return render(context()
                 .put("navGroups", true)
                 .put("groups", groupDao.findAll()));
     }
@@ -27,14 +27,14 @@ public class GroupsController extends AdministratorController {
     public Result view(Params params) {
         Group group = groupDao.findByGroupname(params.get("groupname"));
         List<User> members = groupDao.getMembers(group);
-        return render("admin/groups/view", context()
+        return render(context()
                 .put("navGroups", true)
                 .put("group", group)
                 .put("members", members));
     }
 
     public Result create(Params params) {
-        return render("admin/groups/create", context()
+        return render(context()
                 .put("navGroups", true)
                 .put("form", getCreateForm()));
     }
@@ -52,7 +52,7 @@ public class GroupsController extends AdministratorController {
             return redirect("view?groupname=" + group.getGroupname());
         }
 
-        return render("admin/groups/create", context()
+        return render("create", context()
                 .put("navGroups", true)
                 .put("form", form));
     }
@@ -60,7 +60,7 @@ public class GroupsController extends AdministratorController {
     public Result delete(Params params) {
         Group group = groupDao.findByGroupname(params.get("groupname"));
 
-        return render("admin/groups/delete", context()
+        return render(context()
                 .put("navGroups", true)
                 .put("group", group));
     }
@@ -75,7 +75,7 @@ public class GroupsController extends AdministratorController {
     public Result addMember(Params params) {
         Group group = groupDao.findByGroupname(params.get("groupname"));
 
-        return render("admin/groups/addMember", context()
+        return render(context()
                 .put("navGroups", true)
                 .put("group", group)
                 .put("form", getAddMemberForm()));
@@ -94,7 +94,7 @@ public class GroupsController extends AdministratorController {
             return redirect("view?groupname=" + group.getGroupname());
         }
 
-        return render("admin/groups/addMember", context()
+        return render("addMember", context()
                 .put("navGroups", true)
                 .put("group", group)
                 .put("form", form));

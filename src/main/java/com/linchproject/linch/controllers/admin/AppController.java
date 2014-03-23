@@ -10,7 +10,7 @@ import com.linchproject.core.Result;
 public class AppController extends AdministratorController {
 
     public Result index(Params params) {
-        return render("admin/index", context()
+        return render(context()
                 .put("navIndex", true)
                 .put("hello", "Hello Admin"));
     }

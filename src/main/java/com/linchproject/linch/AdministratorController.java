@@ -15,7 +15,7 @@ public abstract class AdministratorController extends SecureController {
         } else if (isLoggedIn()) {
             result = error("Not permitted");
         } else {
-            result = redirect("/login?next=" + route.getPath());
+            result = redirect("/auth/login?next=" + route.getPath());
         }
         return result;
     }

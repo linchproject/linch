@@ -1,4 +1,4 @@
-{{<super}}
+{{<../super}}
 {{$content}}
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -7,7 +7,7 @@
                     {{#error}}
                         <div class="alert alert-danger">{{error}}</div>
                     {{/error}}
-                    <form role="form" action="{{#path}}/login{{/path}}" method="post">
+                    <form role="form" action="{{#path}}doLogin{{/path}}" method="post">
                         <fieldset>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">
@@ -35,4 +35,4 @@
         </div>
     </div>
 {{/content}}
-{{/super}}
+{{/../super}}

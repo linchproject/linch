@@ -10,6 +10,6 @@ import com.linchproject.core.Result;
 public class AppController extends Controller {
 
     public Result index(Params params) {
-        return render("index", context().put("hello", "Hello Linch"));
+        return render(context().put("hello", "Hello Linch"));
     }
 }

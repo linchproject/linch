@@ -21,14 +21,14 @@ public class UsersController extends AdministratorController {
 
 
     public Result index(Params params) {
-        return render("admin/users/index", context()
+        return render(context()
                 .put("navUsers", true)
                 .put("users", userDao.findAll()));
     }
 
     public Result view(Params params) {
         User user = userDao.findByUsername(params.get("username"));
-        return render("admin/users/view", context()
+        return render(context()
                 .put("navUsers", true)
                 .put("theUser", user));
     }
@@ -36,7 +36,7 @@ public class UsersController extends AdministratorController {
     public Result edit(Params params) {
         User user = userDao.findByUsername(params.get("username"));
 
-        return render("admin/users/edit", context()
+        return render(context()
                 .put("navUsers", true)
                 .put("form", getEditForm()
                         .put("username", user.getUsername())
@@ -60,13 +60,13 @@ public class UsersController extends AdministratorController {
             return redirect("view?username=" + user.getUsername());
         }
 
-        return render("admin/users/edit", context()
+        return render("edit", context()
                 .put("navUsers", true)
                 .put("form", form));
     }
 
     public Result create(Params params) {
-        return render("admin/users/create", context()
+        return render(context()
                 .put("navUsers", true)
                 .put("form", getCreateForm()));
     }
@@ -88,7 +88,7 @@ public class UsersController extends AdministratorController {
             return redirect("view?username=" + user.getUsername());
         }
 
-        return render("admin/users/create", context()
+        return render("create", context()
                 .put("navUsers", true)
                 .put("form", form));
     }
@@ -96,7 +96,7 @@ public class UsersController extends AdministratorController {
     public Result delete(Params params) {
         User user = userDao.findByUsername(params.get("username"));
 
-        return render("admin/users/delete", context()
+        return render(context()
                 .put("navUsers", true)
                 .put("theUser", user));
     }

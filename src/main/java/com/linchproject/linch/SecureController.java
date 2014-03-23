@@ -13,7 +13,7 @@ public abstract class SecureController extends Controller {
         if (isActiveUser()) {
             result = dispatch(route);
         } else {
-            result = redirect("/login?next=" + route.getPath());
+            result = redirect("/auth/login?next=" + route.getPath());
         }
         return result;
     }
