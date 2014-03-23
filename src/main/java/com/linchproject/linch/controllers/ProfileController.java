@@ -30,10 +30,7 @@ public class ProfileController extends SecureController {
         Form form = new I18nForm(getI18n())
                 .addField("firstName")
                 .addField("lastName")
-                .addField("email")
-                .addValidator(new RequiredValidator())
-                .addValidator(new EmailValidator())
-                .form();
+                .addField("email", new RequiredValidator(), new EmailValidator());
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();
@@ -67,15 +64,9 @@ public class ProfileController extends SecureController {
         User user = getUser();
 
         Form form = new I18nForm(getI18n())
-                .addField("currentPassword")
-                .addValidator(new RequiredValidator())
-                .addValidator(new PasswordValidator())
-                .addField("newPassword")
-                .addValidator(new RequiredValidator())
-                .addField("confirmNewPassword")
-                .addValidator(new RequiredValidator())
-                .addValidator(new EqualsValidator("newPassword"))
-                .form();
+                .addField("currentPassword", new RequiredValidator(), new PasswordValidator())
+                .addField("newPassword", new RequiredValidator())
+                .addField("confirmNewPassword", new RequiredValidator(), new EqualsValidator("newPassword"));
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();

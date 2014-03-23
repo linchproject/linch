@@ -41,10 +41,7 @@ public class UsersController extends AdministratorController {
                 .addField("username")
                 .addField("firstName")
                 .addField("lastName")
-                .addField("email")
-                .addValidator(new RequiredValidator())
-                .addValidator(new EmailValidator())
-                .form();
+                .addField("email", new RequiredValidator(), new EmailValidator());
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();
@@ -78,19 +75,12 @@ public class UsersController extends AdministratorController {
         Result result;
 
         Form form = new I18nForm(getI18n())
-                .addField("username")
-                .addValidator(new RequiredValidator())
-                .addValidator(new UserExistsValidator())
+                .addField("username", new RequiredValidator(), new UserExistsValidator())
                 .addField("firstName")
                 .addField("lastName")
-                .addField("email")
-                .addValidator(new RequiredValidator())
-                .addValidator(new EmailValidator())
-                .addField("password")
-                .addValidator(new RequiredValidator())
-                .addField("confirmPassword")
-                .addValidator(new EqualsValidator("password"))
-                .form();
+                .addField("email", new RequiredValidator(), new EmailValidator())
+                .addField("password", new RequiredValidator())
+                .addField("confirmPassword", new EqualsValidator("password"));
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();

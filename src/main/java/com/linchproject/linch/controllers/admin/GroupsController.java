@@ -37,10 +37,7 @@ public class GroupsController extends AdministratorController {
         Result result;
 
         Form form = new I18nForm(getI18n())
-                .addField("groupname")
-                .addValidator(new RequiredValidator())
-                .addValidator(new GroupExistsValidator())
-                .form();
+                .addField("groupname", new RequiredValidator(), new GroupExistsValidator());
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();
@@ -86,10 +83,7 @@ public class GroupsController extends AdministratorController {
         Group group = groupDao.findByGroupname(params.get("groupname"));
 
         Form form = new I18nForm(getI18n())
-                .addField("username")
-                .addValidator(new RequiredValidator())
-                .addValidator(new UserNotExistsValidator())
-                .form();
+                .addField("username", new RequiredValidator(), new UserNotExistsValidator());
 
         if (params.get("submit") != null) {
             form.bind(params.getMap()).validate();
