@@ -20,7 +20,7 @@ public class ProfileController extends SecureController {
     protected PasswordEncryptor passwordEncryptor;
 
     public Result index(Params params) {
-        return render("profile/index", context().put("navIndex", true));
+        return render(context().put("navIndex", true));
     }
 
     public Result edit(Params params) {
