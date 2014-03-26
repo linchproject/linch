@@ -15,14 +15,14 @@ public class _Controller extends Controller {
     protected AppService appService;
 
     public Result _(Params params) {
-        App app = appService.getApp("/" + route.getController());
+        App app = appService.getApp(route.getController());
         if (app != null) {
             Route route = this.route.copy();
             route.setControllerPackage(app.getAppPackage() + ".controllers");
             route.shift();
             return dispatch(route);
         }
-        return dispatch(route);
+        return dispatch();
     }
 
     public void setAppService(AppService appService) {

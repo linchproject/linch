@@ -38,12 +38,14 @@ public class ClassPathAppService implements AppService {
                     Properties properties = new Properties();
                     try {
                         properties.load(inputStream);
-                        App app = new App();
-                        app.setName(properties.getProperty("name"));
-                        app.setDescription(properties.getProperty("description"));
-                        app.setPath(properties.getProperty("path"));
-                        app.setAppPackage(properties.getProperty("package"));
-                        apps.put(app.getPath(), app);
+                        if (properties.getProperty("path") != null) {
+                            App app = new App();
+                            app.setName(properties.getProperty("name"));
+                            app.setDescription(properties.getProperty("description"));
+                            app.setPath(properties.getProperty("path"));
+                            app.setAppPackage(properties.getProperty("package"));
+                            apps.put(app.getPath(), app);
+                        }
                     } catch (IOException e) {
                         // ignore
                     }
