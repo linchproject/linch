@@ -43,6 +43,7 @@ public class GroupDao extends Dao<Group> implements Initializing {
         } else {
             group.setId(query("update `group` set groupname = :groupname where id = :id", true)
                     .bind(group)
+                    .addParameter("id", group.getId())
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         }

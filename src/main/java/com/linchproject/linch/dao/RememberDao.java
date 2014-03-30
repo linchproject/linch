@@ -25,26 +25,27 @@ public class RememberDao extends Dao<Remember> implements Initializing {
     }
 
     @Override
-    public void save(Remember object) {
-        if (object.getId() == null) {
-            object.setId(query("insert into remember ( uuid, user_id ) " +
+    public void save(Remember remember) {
+        if (remember.getId() == null) {
+            remember.setId(query("insert into remember ( uuid, user_id ) " +
                     "values ( :uuid, :userId )", true)
-                    .bind(object)
+                    .bind(remember)
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         } else {
-            object.setId(query("update remember set uuid = :uuid, user_id = :userId,  where id = :id", true)
-                    .bind(object)
+            remember.setId(query("update remember set uuid = :uuid, user_id = :userId where id = :id", true)
+                    .bind(remember)
+                    .addParameter("id", remember.getId())
                     .executeUpdate()
                     .<Long>getKey(Long.class));
         }
     }
 
     @Override
-    public void delete(Remember object) {
-        if (object.getId() != null) {
+    public void delete(Remember remember) {
+        if (remember.getId() != null) {
             query("delete from remember where id = :id")
-                    .addParameter("id", object.getId())
+                    .addParameter("id", remember.getId())
                     .executeUpdate();
         }
     }
