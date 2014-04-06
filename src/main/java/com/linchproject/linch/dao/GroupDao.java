@@ -92,40 +92,45 @@ public class GroupDao extends Dao<Group> implements Initializing {
 
     @Override
     public void init() {
-        query("create table if not exists `group` ( " +
-                "id int(11) unsigned not null auto_increment, " +
-                "groupname varchar(255) not null, " +
-                "primary key (id), " +
-                "key groupname (groupname) " +
-                ") engine=InnoDB default charset=utf8").executeUpdate();
+        try {
+            query("select count(*) from `group`").executeScalar(Integer.class);
+        } catch (Exception e) {
+            query("create table `group` ( " +
+                    "id int(11) unsigned not null auto_increment, " +
+                    "groupname varchar(255) not null, " +
+                    "primary key (id) " +
+                    ")").executeUpdate();
 
-        query("create table if not exists group_user ( " +
-                "group_id int(11) unsigned not null, " +
-                "user_id int(11) unsigned not null, " +
-                "primary key (user_id, group_id)" +
-                ") engine=InnoDB default charset=utf8").executeUpdate();
+            query("create index groupname on `group` (groupname)").executeUpdate();
 
-        User admin = userDao.findByUsername("admin");
+            query("create table group_user ( " +
+                    "group_id int(11) unsigned not null, " +
+                    "user_id int(11) unsigned not null, " +
+                    "primary key (user_id, group_id)" +
+                    ")").executeUpdate();
 
-        Group users = findByGroupname("users");
-        if (users == null) {
-            users = new Group();
-            users.setGroupname("users");
-            save(users);
+            User admin = userDao.findByUsername("admin");
 
-            if (admin != null) {
-                addMember(users, admin);
+            Group users = findByGroupname("users");
+            if (users == null) {
+                users = new Group();
+                users.setGroupname("users");
+                save(users);
+
+                if (admin != null) {
+                    addMember(users, admin);
+                }
             }
-        }
 
-        Group administrators = findByGroupname("administrators");
-        if (administrators == null) {
-            administrators = new Group();
-            administrators.setGroupname("administrators");
-            save(administrators);
+            Group administrators = findByGroupname("administrators");
+            if (administrators == null) {
+                administrators = new Group();
+                administrators.setGroupname("administrators");
+                save(administrators);
 
-            if (admin != null) {
-                addMember(administrators, admin);
+                if (admin != null) {
+                    addMember(administrators, admin);
+                }
             }
         }
     }

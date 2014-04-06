@@ -58,12 +58,17 @@ public class SettingDao extends Dao<Setting> implements Initializing {
 
     @Override
     public void init() {
-        query("create table if not exists setting ( " +
-                "id int(11) unsigned not null auto_increment, " +
-                "`key` varchar(255) not null, " +
-                "value varchar(255) not null, " +
-                "primary key (id), " +
-                "key `key` (`key`) " +
-                ") engine=InnoDB default charset=utf8").executeUpdate();
+        try {
+            query("select count(*) from setting").executeScalar(Integer.class);
+        } catch (Exception e) {
+            query("create table setting ( " +
+                    "id int(11) unsigned not null auto_increment, " +
+                    "`key` varchar(255) not null, " +
+                    "value varchar(255) not null, " +
+                    "primary key (id) " +
+                    ")").executeUpdate();
+
+            query("create index `key` on setting (`key`)").executeUpdate();
+        }
     }
 }

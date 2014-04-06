@@ -1,8 +1,8 @@
 package com.linchproject.linch.dao;
 
-import com.linchproject.linch.entities.User;
 import com.linchproject.framework.db.Dao;
 import com.linchproject.ioc.Initializing;
+import com.linchproject.linch.entities.User;
 
 import java.util.List;
 
@@ -67,22 +67,27 @@ public class UserDao extends Dao<User> implements Initializing {
 
     @Override
     public void init() {
-        query("create table if not exists user ( " +
-                "id int(11) unsigned not null auto_increment, " +
-                "username varchar(255) not null, " +
-                "password varchar(255) not null, " +
-                "first_name varchar(255), " +
-                "last_name varchar(255), " +
-                "email varchar(255), " +
-                "primary key (id), " +
-                "key username (username) " +
-                ") engine=InnoDB default charset=utf8").executeUpdate();
+        try {
+            query("select count(*) from user").executeScalar(Integer.class);
+        } catch (Exception e) {
+            query("create table user ( " +
+                    "id int(11) unsigned not null auto_increment, " +
+                    "username varchar(255) not null, " +
+                    "password varchar(255) not null, " +
+                    "first_name varchar(255), " +
+                    "last_name varchar(255), " +
+                    "email varchar(255), " +
+                    "primary key (id) " +
+                    ")").executeUpdate();
 
-        if (findAll().isEmpty()) {
-            User user = new User();
-            user.setUsername("admin");
-            user.setPassword("N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J");
-            save(user);
+            query("create index username on user (username)").executeUpdate();
+
+            if (findAll().isEmpty()) {
+                User user = new User();
+                user.setUsername("admin");
+                user.setPassword("N5lrX+ZfsB1MuC/J+frGztL/eRL0n+7J");
+                save(user);
+            }
         }
     }
 }

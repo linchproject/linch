@@ -1,8 +1,8 @@
 package com.linchproject.linch.dao;
 
-import com.linchproject.linch.entities.Remember;
 import com.linchproject.framework.db.Dao;
 import com.linchproject.ioc.Initializing;
+import com.linchproject.linch.entities.Remember;
 
 import java.util.List;
 
@@ -64,13 +64,18 @@ public class RememberDao extends Dao<Remember> implements Initializing {
 
     @Override
     public void init() {
-        query("create table if not exists remember ( " +
-                "id int(11) unsigned not null auto_increment, " +
-                "uuid varchar(255) not null, " +
-                "user_id int(11) unsigned not null, " +
-                "primary key (id), " +
-                "key uuid (uuid), " +
-                "key user_id (user_id) " +
-                ") engine=InnoDB default charset=utf8").executeUpdate();
+        try {
+            query("select count(*) from remember").executeScalar(Integer.class);
+        } catch (Exception e) {
+            query("create table remember ( " +
+                    "id int(11) unsigned not null auto_increment, " +
+                    "uuid varchar(255) not null, " +
+                    "user_id int(11) unsigned not null, " +
+                    "primary key (id) " +
+                    ")").executeUpdate();
+
+            query("create index uuid on remember (uuid)").executeUpdate();
+            query("create index user_id on remember (user_id)").executeUpdate();
+        }
     }
 }
