@@ -50,9 +50,9 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.28</version>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.3.175</version>
                     </dependency>
                 </dependencies>
             </plugin>

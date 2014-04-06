@@ -5,10 +5,10 @@
     <New id="linch" class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg>jdbc/linch</Arg>
         <Arg>
-            <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
-                <Set name="Url">jdbc:mysql://localhost/linch?autoReconnect=true</Set>
-                <Set name="User">user</Set>
-                <Set name="Password">password</Set>
+            <New class="org.h2.jdbcx.JdbcDataSource">
+                <Set name="URL">jdbc:h2:target/linch</Set>
+                <Set name="User">sa</Set>
+                <Set name="Password">sa</Set>
             </New>
         </Arg>
     </New>
