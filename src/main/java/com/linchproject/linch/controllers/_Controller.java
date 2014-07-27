@@ -18,9 +18,9 @@ public class _Controller extends Controller implements _Action {
     public Result _Action() {
         App app = appService.getApp(route.getController());
         if (app != null) {
-            Route route = this.route.copy();
-            route.setControllerPackage(app.getAppPackage() + ".controllers");
-            route.shift();
+            Route route = this.route
+                    .changeControllerPackage(app.getAppPackage() + ".controllers")
+                    .shift();
             return dispatch(route);
         }
         return dispatch();

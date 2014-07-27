@@ -22,13 +22,13 @@ public class AppController extends Controller implements IndexAction {
         Setting indexPathSetting = settingDao.findByKey("indexPath");
         if (indexPathSetting != null) {
             String indexPath = indexPathSetting.getValue();
-            Route route = this.route.copy();
+            Route route;
 
             App app = appService.getApp(indexPath);
             if (app != null) {
-                route.setControllerPackage(app.getAppPackage() + ".controllers");
+                route = this.route.changeControllerPackage(app.getAppPackage() + ".controllers");
             } else {
-                route.setPath(indexPath);
+                route = this.route.changePath(indexPath);
             }
 
             return dispatch(route);
