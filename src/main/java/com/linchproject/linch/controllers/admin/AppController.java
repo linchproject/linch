@@ -1,15 +1,15 @@
 package com.linchproject.linch.controllers.admin;
 
-import com.linchproject.linch.AdministratorController;
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
+import com.linchproject.core.actions.IndexAction;
+import com.linchproject.linch.AdministratorController;
 
 /**
  * @author Georg Schmidl
  */
-public class AppController extends AdministratorController {
+public class AppController extends AdministratorController implements IndexAction {
 
-    public Result index(Params params) {
+    public Result indexAction() {
         return render(context()
                 .put("navIndex", true)
                 .put("hello", "Hello Admin"));

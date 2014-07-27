@@ -1,14 +1,15 @@
 package com.linchproject.linch;
 
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
+import com.linchproject.core.actions._Action;
 
 /**
  * @author Georg Schmidl
  */
-public abstract class SecureController extends Controller {
+public abstract class SecureController extends Controller implements _Action {
 
-    public Result _(Params params) {
+    @Override
+    public Result _Action() {
         Result result;
         if (isActiveUser()) {
             result = dispatch(route);

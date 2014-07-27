@@ -1,5 +1,7 @@
 package com.linchproject.linch.controllers;
 
+import com.linchproject.core.Result;
+import com.linchproject.core.actions.IndexAction;
 import com.linchproject.forms.Form;
 import com.linchproject.forms.Validator;
 import com.linchproject.forms.validators.EmailValidator;
@@ -7,23 +9,24 @@ import com.linchproject.forms.validators.EqualsValidator;
 import com.linchproject.forms.validators.RequiredValidator;
 import com.linchproject.linch.I18nForm;
 import com.linchproject.linch.SecureController;
+import com.linchproject.linch.actions.EditAction;
 import com.linchproject.linch.entities.User;
-import com.linchproject.core.Params;
-import com.linchproject.core.Result;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  * @author Georg Schmidl
  */
-public class ProfileController extends SecureController {
+public class ProfileController extends SecureController implements IndexAction, EditAction {
 
     protected PasswordEncryptor passwordEncryptor;
 
-    public Result index(Params params) {
+    @Override
+    public Result indexAction() {
         return render(context().put("navIndex", true));
     }
 
-    public Result edit(Params params) {
+    @Override
+    public Result editAction() {
         return render(context()
                 .put("navIndex", true)
                 .put("form", getEditForm()
@@ -32,11 +35,12 @@ public class ProfileController extends SecureController {
                         .put("email", getUser().getEmail())));
     }
 
-    public Result doEdit(Params params) {
+    @Override
+    public Result doEditAction() {
         User user = getUser();
         Form form = getEditForm();
 
-        form.bind(params.getMap()).validate();
+        form.bind(route.getParameterMap()).validate();
 
         if (form.isValid()) {
             user.setFirstName(form.get("firstName").getValue());
@@ -52,17 +56,17 @@ public class ProfileController extends SecureController {
                 .put("form", form));
     }
 
-    public Result changePassword(Params params) {
+    public Result changePasswordAction() {
         return render(context()
                 .put("navChangePassword", true)
                 .put("form", getChangePasswordForm()));
     }
 
-    public Result doChangePassword(Params params) {
+    public Result doChangePasswordAction() {
         User user = getUser();
         Form form = getChangePasswordForm();
 
-        form.bind(params.getMap()).validate();
+        form.bind(route.getParameterMap()).validate();
 
         if (form.isValid()) {
             user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));

@@ -1,8 +1,8 @@
 package com.linchproject.linch.controllers;
 
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 import com.linchproject.core.Route;
+import com.linchproject.core.actions._Action;
 import com.linchproject.linch.App;
 import com.linchproject.linch.Controller;
 import com.linchproject.linch.services.AppService;
@@ -10,11 +10,12 @@ import com.linchproject.linch.services.AppService;
 /**
  * @author Georg Schmidl
  */
-public class _Controller extends Controller {
+public class _Controller extends Controller implements _Action {
 
     protected AppService appService;
 
-    public Result _(Params params) {
+    @Override
+    public Result _Action() {
         App app = appService.getApp(route.getController());
         if (app != null) {
             Route route = this.route.copy();

@@ -1,27 +1,30 @@
 package com.linchproject.linch.controllers.admin;
 
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
+import com.linchproject.core.actions.IndexAction;
 import com.linchproject.forms.Form;
 import com.linchproject.linch.AdministratorController;
 import com.linchproject.linch.I18nForm;
+import com.linchproject.linch.actions.EditAction;
 import com.linchproject.linch.dao.SettingDao;
 import com.linchproject.linch.entities.Setting;
 
 /**
  * @author Georg Schmidl
  */
-public class SettingsController extends AdministratorController {
+public class SettingsController extends AdministratorController implements IndexAction, EditAction {
 
     protected SettingDao settingDao;
 
-    public Result index(Params params) {
+    @Override
+    public Result indexAction() {
         return render(context()
                 .put("navSettings", true)
                 .put("indexPath", settingDao.findByKey("indexPath")));
     }
 
-    public Result edit(Params params) {
+    @Override
+    public Result editAction() {
         Form form = getEditForm();
 
         Setting indexPath = settingDao.findByKey("indexPath");
@@ -34,9 +37,10 @@ public class SettingsController extends AdministratorController {
                 .put("form", form));
     }
 
-    public Result doEdit(Params params) {
+    @Override
+    public Result doEditAction() {
         Form form = getEditForm();
-        form.bind(params.getMap()).validate();
+        form.bind(route.getParameterMap()).validate();
 
         if (form.isValid()) {
             Setting indexPath = settingDao.findByKey("indexPath");

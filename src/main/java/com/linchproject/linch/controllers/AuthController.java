@@ -17,13 +17,17 @@ public class AuthController extends Controller {
 
     protected PasswordEncryptor passwordEncryptor;
 
-    public Result login(Params params) {
+    public Result loginAction() {
+        Params params = route.getParams();
+
         return render(context()
                 .put("hideNavigationLogin", true)
                 .put("next", params.get("next") != null? params.get("next"): "/"));
     }
 
-    public Result doLogin(Params params) {
+    public Result doLoginAction() {
+        Params params = route.getParams();
+
         String username = params.get("username");
 
         User user = userDao.findByUsername(username);
@@ -58,7 +62,7 @@ public class AuthController extends Controller {
                 .put("next", params.get("next") != null? params.get("next"): "/"));
     }
 
-    public Result logout(Params params) {
+    public Result logoutAction() {
         sessionService.setValue(Settings.SESSION_USER_KEY, null);
         cookieService.removeCookie("linch");
         return redirect("/");

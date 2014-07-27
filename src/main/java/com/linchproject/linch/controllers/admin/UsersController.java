@@ -1,6 +1,5 @@
 package com.linchproject.linch.controllers.admin;
 
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 import com.linchproject.forms.Form;
 import com.linchproject.forms.Validator;
@@ -9,32 +8,35 @@ import com.linchproject.forms.validators.EqualsValidator;
 import com.linchproject.forms.validators.RequiredValidator;
 import com.linchproject.linch.AdministratorController;
 import com.linchproject.linch.I18nForm;
+import com.linchproject.linch.actions.Crud;
 import com.linchproject.linch.entities.User;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  * @author Georg Schmidl
  */
-public class UsersController extends AdministratorController {
+public class UsersController extends AdministratorController implements Crud {
 
     protected PasswordEncryptor passwordEncryptor;
 
-
-    public Result index(Params params) {
+    @Override
+    public Result indexAction() {
         return render(context()
                 .put("navUsers", true)
                 .put("users", userDao.findAll()));
     }
 
-    public Result view(Params params) {
-        User user = userDao.findByUsername(params.get("username"));
+    @Override
+    public Result viewAction() {
+        User user = userDao.findByUsername(route.getParams().get("username"));
         return render(context()
                 .put("navUsers", true)
                 .put("theUser", user));
     }
 
-    public Result edit(Params params) {
-        User user = userDao.findByUsername(params.get("username"));
+    @Override
+    public Result editAction() {
+        User user = userDao.findByUsername(route.getParams().get("username"));
 
         return render(context()
                 .put("navUsers", true)
@@ -45,11 +47,12 @@ public class UsersController extends AdministratorController {
                         .put("email", user.getEmail())));
     }
 
-    public Result doEdit(Params params) {
-        User user = userDao.findByUsername(params.get("username"));
+    @Override
+    public Result doEditAction() {
+        User user = userDao.findByUsername(route.getParams().get("username"));
         Form form = getEditForm();
 
-        form.bind(params.getMap()).validate();
+        form.bind(route.getParameterMap()).validate();
 
         if (form.isValid()) {
             user.setFirstName(form.get("firstName").getValue());
@@ -65,16 +68,18 @@ public class UsersController extends AdministratorController {
                 .put("form", form));
     }
 
-    public Result create(Params params) {
+    @Override
+    public Result createAction() {
         return render(context()
                 .put("navUsers", true)
                 .put("form", getCreateForm()));
     }
 
-    public Result doCreate(Params params) {
+    @Override
+    public Result doCreateAction() {
         Form form = getCreateForm();
 
-        form.bind(params.getMap()).validate();
+        form.bind(route.getParameterMap()).validate();
 
         if (form.isValid()) {
             User user = new User();
@@ -93,16 +98,18 @@ public class UsersController extends AdministratorController {
                 .put("form", form));
     }
 
-    public Result delete(Params params) {
-        User user = userDao.findByUsername(params.get("username"));
+    @Override
+    public Result deleteAction() {
+        User user = userDao.findByUsername(route.getParams().get("username"));
 
         return render(context()
                 .put("navUsers", true)
                 .put("theUser", user));
     }
 
-    public Result doDelete(Params params) {
-        User user = userDao.findByUsername(params.get("username"));
+    @Override
+    public Result doDeleteAction() {
+        User user = userDao.findByUsername(route.getParams().get("username"));
         userDao.delete(user);
 
         return redirect("index");

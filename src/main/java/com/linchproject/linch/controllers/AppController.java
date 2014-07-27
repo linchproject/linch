@@ -1,8 +1,8 @@
 package com.linchproject.linch.controllers;
 
-import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 import com.linchproject.core.Route;
+import com.linchproject.core.actions.IndexAction;
 import com.linchproject.linch.App;
 import com.linchproject.linch.Controller;
 import com.linchproject.linch.dao.SettingDao;
@@ -12,12 +12,13 @@ import com.linchproject.linch.services.AppService;
 /**
  * @author Georg Schmidl
  */
-public class AppController extends Controller {
+public class AppController extends Controller implements IndexAction {
 
     protected SettingDao settingDao;
     protected AppService appService;
 
-    public Result index(Params params) {
+    @Override
+    public Result indexAction() {
         Setting indexPathSetting = settingDao.findByKey("indexPath");
         if (indexPathSetting != null) {
             String indexPath = indexPathSetting.getValue();
