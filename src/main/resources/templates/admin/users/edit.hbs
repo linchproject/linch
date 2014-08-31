@@ -1,30 +1,32 @@
-{{<super}}{{$inner}}
+{{#partial "inner"}}
 
-<h1 class="page-header">{{#i18n}}linch.form.edit{{/i18n}}</h1>
+<h1 class="page-header">{{i18n "linch.users.edit.user"}}: {{form.username}}</h1>
 
-<form class="form-horizontal" role="form" action="{{#path}}doEdit{{/path}}" method="post">
+<form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
+    <input type="hidden" name="username" value="{{form.username}}">
+
     <div class="form-group">
-        <label class="col-sm-3 control-label">{{#i18n}}linch.user.username{{/i18n}}</label>
+        <label class="col-sm-3 control-label">{{i18n "linch.user.username"}}</label>
         <div class="col-sm-5">
-            <p class="form-control-static">{{user.username}}</p>
+            <p class="form-control-static">{{form.username}}</p>
         </div>
     </div>
     <div class="form-group {{#form.firstName.error}}has-error{{/form.firstName.error}}">
-        <label for="firstName" class="col-sm-3 control-label">{{#i18n}}linch.user.first.name{{/i18n}}</label>
+        <label for="firstName" class="col-sm-3 control-label">{{i18n "linch.user.first.name"}}</label>
         <div class="col-sm-5">
             <input type="text" class="form-control" id="firstName" name="firstName" value="{{form.firstName}}">
             {{#form.firstName.error}}<span class="help-block">{{.}}</span>{{/form.firstName.error}}
         </div>
     </div>
     <div class="form-group {{#form.lastName.error}}has-error{{/form.lastName.error}}">
-        <label for="lastName" class="col-sm-3 control-label">{{#i18n}}linch.user.last.name{{/i18n}}</label>
+        <label for="lastName" class="col-sm-3 control-label">{{i18n "linch.user.last.name"}}</label>
         <div class="col-sm-5">
             <input type="text" class="form-control" id="lastName" name="lastName" value="{{form.lastName}}">
             {{#form.lastName.error}}<span class="help-block">{{.}}</span>{{/form.lastName.error}}
         </div>
     </div>
     <div class="form-group {{#form.email.error}}has-error{{/form.email.error}}">
-        <label for="email" class="col-sm-3 control-label">{{#i18n}}linch.user.email{{/i18n}}</label>
+        <label for="email" class="col-sm-3 control-label">{{i18n "linch.user.email"}}</label>
         <div class="col-sm-5">
             <input type="email" class="form-control" id="email" name="email" value="{{form.email}}" required>
             {{#form.email.error}}<span class="help-block">{{.}}</span>{{/form.email.error}}
@@ -32,10 +34,12 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
-            <input class="btn btn-primary" type="submit" name="submit" value="{{#i18n}}linch.form.save{{/i18n}}">
-            <a class="btn btn-default" href="{{#path}}index{{/path}}">{{#i18n}}linch.form.cancel{{/i18n}}</a>
+            <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">
+            <a class="btn btn-default" href="{{path "view" username=form.username}}">{{i18n "linch.form.cancel"}}</a>
         </div>
     </div>
 </form>
 
-{{/inner}}{{/super}}
+{{/partial}}
+
+{{>admin/super}}

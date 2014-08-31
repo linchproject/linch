@@ -1,6 +1,5 @@
 package com.linchproject.linch;
 
-import com.github.mustachejava.TemplateFunction;
 import com.linchproject.linch.dao.GroupDao;
 import com.linchproject.linch.dao.RememberDao;
 import com.linchproject.linch.dao.UserDao;
@@ -70,13 +69,7 @@ public class Controller extends com.linchproject.framework.Controller {
     @Override
     protected Context context() {
         return super.context()
-                .put("user", getUser())
-                .put("i18n", new TemplateFunction() {
-                    @Override
-                    public String apply(String input) {
-                        return getI18n().getText(input);
-                    }
-                });
+                .put("user", getUser());
     }
 
     public void setUserDao(UserDao userDao) {

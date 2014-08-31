@@ -1,0 +1,22 @@
+{{#partial "inner"}}
+
+<h1 class="page-header">{{i18n "linch.groups.delete.group"}}: {{group.groupname}}</h1>
+
+<form class="form-horizontal" role="form" action="{{path "doDelete"}}" method="post">
+    <input type="hidden" name="groupname" value="{{group.groupname}}">
+
+    <div class="alert alert-danger">
+        {{i18n "linch.groups.delete.are.you.sure"}}
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-5">
+            <input class="btn btn-danger" type="submit" name="submit" value="{{i18n "linch.form.delete"}}">
+            <a class="btn btn-default" href="{{path "view" groupname=group.groupname}}">{{i18n "linch.form.cancel"}}</a>
+        </div>
+    </div>
+</form>
+
+{{/partial}}
+
+{{>admin/super}}

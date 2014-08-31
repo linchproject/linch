@@ -8,10 +8,10 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/ico/favicon.ico">
 
-    <title>{{$title}}{{#i18n}}linch{{/i18n}}{{/title}}</title>
+    <title>{{#block "title"}}{{i18n "linch"}}{{/block}}</title>
 
-    <link href="{{#path}}/assets/css/bootstrap.min.css{{/path}}" rel="stylesheet">
-    <link href="{{#path}}/assets/css/linch.css{{/path}}" rel="stylesheet">
+    <link href="{{path "/assets/css/bootstrap.min.css"}}" rel="stylesheet">
+    <link href="{{path "/assets/css/linch.css"}}" rel="stylesheet">
 </head>
 
 <body>
@@ -20,12 +20,12 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">{{#i18n}}linch.accessibility.toggle.navigation{{/i18n}}</span>
+                <span class="sr-only">{{i18n "linch.accessibility.toggle.navigation"}}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">{{#i18n}}linch{{/i18n}}</a>
+            <a class="navbar-brand" href="/">{{i18n "linch"}}</a>
         </div>
 
         <div class="collapse navbar-collapse">
@@ -40,7 +40,7 @@
             {{^user}}
                 {{^hideNavigationLogin}}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{#path}}/auth/login{{/path}}">{{#i18n}}linch.auth.sign.in{{/i18n}}</a></li>
+                        <li><a href="{{path "/auth/login"}}">{{i18n "linch.auth.sign.in"}}</a></li>
                     </ul>
                 {{/hideNavigationLogin}}
             {{/user}}
@@ -50,10 +50,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.fullName}}{{^user.fullName}}{{user.username}}{{/user.fullName}} <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{#path}}/profile{{/path}}">{{#i18n}}linch.profile{{/i18n}}</a></li>
-                            <li><a href="{{#path}}/admin{{/path}}">{{#i18n}}linch.admin{{/i18n}}</a></li>
+                            <li><a href="{{path "/profile"}}">{{i18n "linch.profile"}}</a></li>
+                            <li><a href="{{path "/admin"}}">{{i18n "linch.admin"}}</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{#path}}/auth/logout{{/path}}">{{#i18n}}linch.auth.sign.out{{/i18n}}</a></li>
+                            <li><a href="{{path "/auth/logout"}}">{{i18n "linch.auth.sign.out"}}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -65,12 +65,12 @@
 <div class="container">
     <div class="content">
 
-        {{$content}}{{/content}}
+        {{#block "content"}}{{/block}}
 
     </div>
 </div>
 
-<script src="{{#path}}/assets/js/jquery-1.11.0.min.js{{/path}}"></script>
-<script src="{{#path}}/assets/js/bootstrap.min.js{{/path}}"></script>
+<script src="{{path "/assets/js/jquery-1.11.0.min.js"}}"></script>
+<script src="{{path "/assets/js/bootstrap.min.js"}}"></script>
 </body>
 </html>

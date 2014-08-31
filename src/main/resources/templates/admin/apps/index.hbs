@@ -1,15 +1,17 @@
-{{<../super}}{{$inner}}
+{{#partial "inner"}}
 
-<h1 class="page-header">{{#i18n}}linch.apps{{/i18n}}</h1>
+<h1 class="page-header">{{i18n "linch.apps"}}</h1>
 
 <div class="list-group">
     {{#apps}}
         <div href="#" class="list-group-item">
             <h4 class="list-group-item-heading">{{name}}</h4>
             <p class="list-group-item-text">{{description}}</p>
-            <small>{{#i18n}}linch.app.path{{/i18n}}: <a href="{{#path}}{{path}}{{/path}}">{{path}}</a></small>
+            <small>{{i18n "linch.app.path"}}: <a href="{{path path}}">{{path}}</a></small>
         </div>
     {{/apps}}
 </div>
 
-{{/inner}}{{/../super}}
+{{/partial}}
+
+{{>admin/super}}

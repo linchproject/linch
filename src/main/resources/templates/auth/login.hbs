@@ -1,38 +1,38 @@
-{{<../super}}
-{{$content}}
+{{#partial "content"}}
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                     {{#error}}
-                        <div class="alert alert-danger">{{#i18n}}linch.error.login{{/i18n}}</div>
+                        <div class="alert alert-danger">{{i18n "linch.error.login"}}</div>
                     {{/error}}
-                    <form role="form" action="{{#path}}doLogin{{/path}}" method="post">
+                    <form role="form" action="{{path "doLogin"}}" method="post">
                         <fieldset>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </span>
-                                <input class="form-control" placeholder="{{#i18n}}linch.user.username{{/i18n}}" name="username" type="text" value="{{username}}" required autofocus>
+                                <input class="form-control" placeholder="{{i18n "linch.user.username"}}" name="username" type="text" value="{{username}}" required autofocus>
                             </div>
                             <div class="form-group input-group">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-lock"></i>
                                 </span>
-                                <input class="form-control" placeholder="{{#i18n}}linch.user.password{{/i18n}}" name="password" type="password" required>
+                                <input class="form-control" placeholder="{{i18n "linch.user.password"}}" name="password" type="password" required>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="remember" type="checkbox" value="true" {{#remember}}checked{{/remember}}> {{#i18n}}linch.auth.remember.me{{/i18n}}
+                                    <input name="remember" type="checkbox" value="true" {{#remember}}checked{{/remember}}> {{i18n "linch.auth.remember.me"}}
                                 </label>
                             </div>
                             <input type="hidden" name="next" value="{{next}}">
-                            <input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="{{#i18n}}linch.auth.sign.in{{/i18n}}">
+                            <input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="{{i18n "linch.auth.sign.in"}}">
                         </fieldset>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-{{/content}}
-{{/../super}}
+{{/partial}}
+
+{{>super}}

@@ -1,0 +1,24 @@
+{{#partial "inner"}}
+
+<h1 class="page-header">{{i18n "linch.groups.add.group"}}</h1>
+
+
+<form class="form-horizontal" role="form" action="{{path "doCreate"}}" method="post">
+    <div class="form-group {{#form.groupname.error}}has-error{{/form.groupname.error}}">
+        <label class="col-sm-3 control-label">{{i18n "linch.group.groupname"}}</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="groupname" name="groupname" value="{{form.groupname}}" required>
+            {{#form.groupname.error}}<span class="help-block">{{.}}</span>{{/form.groupname.error}}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-5">
+            <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">
+            <a class="btn btn-default" href="{{path "index"}}">{{i18n "linch.form.cancel"}}</a>
+        </div>
+    </div>
+</form>
+
+{{/partial}}
+
+{{>admin/super}}

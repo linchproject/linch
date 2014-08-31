@@ -1,0 +1,17 @@
+{{#partial "content" }}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="{{path "/profile"}}" class="list-group-item {{#navIndex}}active{{/navIndex}}">{{i18n "linch.profile"}}</a>
+            <a href="{{path "/profile/changePassword"}}" class="list-group-item {{#navChangePassword}}active{{/navChangePassword}}">{{i18n "linch.profile.change.password"}}</a>
+        </div>
+    </div>
+<div class="col-md-9">
+{{#block "inner"}}{{/block}}
+</div>
+</div>
+
+{{/partial}}
+
+{{>super}}

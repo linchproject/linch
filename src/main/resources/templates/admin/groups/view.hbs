@@ -1,0 +1,42 @@
+{{#partial "inner"}}
+
+<h1 class="page-header">{{i18n "linch.groups.group.members"}}: {{group.groupname}}</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{i18n "linch.user.username"}}</th>
+        <th>{{i18n "linch.user.first.name"}}</th>
+        <th>{{i18n "linch.user.last.name"}}</th>
+        <th>{{i18n "linch.user.email"}}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#members}}
+        <tr>
+            <td><a href="{{path "/admin/users/view" username=username}}">{{username}}</a></td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{email}}</td>
+            <td>
+                <a href="{{path "removeMember" groupname=group.groupname username=username}}">
+                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                </a>
+            </td>
+        </tr>
+    {{/members}}
+    {{^members}}
+        <tr>
+            <td colspan="4">{{i18n "linch.groups.no.members"}}</td>
+        </tr>
+    {{/members}}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{path "addMember" groupname=group.groupname}}">{{i18n "linch.groups.add.member"}}</a>
+<a class="btn btn-danger" href="{{path "delete" groupname=group.groupname}}">{{i18n "linch.form.delete"}}</a>
+
+{{/partial}}
+
+{{>admin/super}}

@@ -1,0 +1,35 @@
+{{#partial "inner"}}
+
+<h1 class="page-header">{{i18n "linch.users"}}</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{i18n "linch.user.username"}}</th>
+        <th>{{i18n "linch.user.first.name"}}</th>
+        <th>{{i18n "linch.user.last.name"}}</th>
+        <th>{{i18n "linch.user.email"}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td><a href="{{path "view" username=username}}">{{username}}</a></td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{email}}</td>
+        </tr>
+    {{/users}}
+    {{^users}}
+        <tr>
+            <td colspan="4">{{i18n "linch.users.no.users"}}</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
+
+<a href="{{path "create"}}">{{i18n "linch.users.add.user"}}</a>
+
+{{/partial}}
+
+{{>admin/super}}
