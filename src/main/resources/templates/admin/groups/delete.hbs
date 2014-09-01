@@ -1,9 +1,12 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.groups.delete.group"}}: {{group.groupname}}</h1>
 
 <form class="form-horizontal" role="form" action="{{path "doDelete"}}" method="post">
-    <input type="hidden" name="groupname" value="{{group.groupname}}">
+
+    {{#block "hiddenField" name="groupname" value=group.groupname}}{{/block}}
 
     <div class="alert alert-danger">
         {{i18n "linch.groups.delete.are.you.sure"}}

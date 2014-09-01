@@ -8,6 +8,20 @@
     </div>
 {{/partial}}
 
+{{#partial "passwordField"}}
+    <div class="form-group {{#error}}has-error{{/error}}">
+        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}">
+            {{#error}}<span class="help-block">{{.}}</span>{{/error}}
+        </div>
+    </div>
+{{/partial}}
+
+{{#partial "hiddenField"}}
+    <input type="hidden" name="{{name}}" value="{{value}}">
+{{/partial}}
+
 {{#partial "readonlyField"}}
     <div class="form-group">
         <label class="col-sm-3 control-label">{{i18n i18nKey}}</label>
@@ -15,4 +29,5 @@
             <p class="form-control-static">{{value}}</p>
         </div>
     </div>
+    <input type="hidden" name="{{name}}" value="{{value}}">
 {{/partial}}

@@ -1,15 +1,13 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.settings"}}</h1>
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.settings.indexPath"}}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="indexPath" name="indexPath" value="{{form.indexPath}}">
-            {{#form.indexPath.error}}<span class="help-block">{{.}}</span>{{/form.indexPath.error}}
-        </div>
-    </div>
+
+    {{#block "inputField" name="indexPath" value=form.indexPath i18nKey="linch.settings.indexPath"}}{{/block}}
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

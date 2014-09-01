@@ -1,35 +1,16 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.form.edit"}}</h1>
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.username"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{user.username}}</p>
-        </div>
-    </div>
-    <div class="form-group {{#form.firstName.error}}has-error{{/form.firstName.error}}">
-        <label for="firstName" class="col-sm-3 control-label">{{i18n "linch.user.first.name"}}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="firstName" name="firstName" value="{{form.firstName}}">
-            {{#form.firstName.error}}<span class="help-block">{{.}}</span>{{/form.firstName.error}}
-        </div>
-    </div>
-    <div class="form-group {{#form.lastName.error}}has-error{{/form.lastName.error}}">
-        <label for="lastName" class="col-sm-3 control-label">{{i18n "linch.user.last.name"}}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="lastName" name="lastName" value="{{form.lastName}}">
-            {{#form.lastName.error}}<span class="help-block">{{.}}</span>{{/form.lastName.error}}
-        </div>
-    </div>
-    <div class="form-group {{#form.email.error}}has-error{{/form.email.error}}">
-        <label for="email" class="col-sm-3 control-label">{{i18n "linch.user.email"}}</label>
-        <div class="col-sm-5">
-            <input type="email" class="form-control" id="email" name="email" value="{{form.email}}" required>
-            {{#form.email.error}}<span class="help-block">{{.}}</span>{{/form.email.error}}
-        </div>
-    </div>
+
+    {{#block "readonlyField" name="username" value=user.username i18nKey="linch.user.username"}}{{/block}}
+    {{#block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}{{/block}}
+    {{#block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}{{/block}}
+    {{#block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}{{/block}}
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

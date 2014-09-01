@@ -5,7 +5,6 @@
 <h1 class="page-header">{{i18n "linch.users.edit.user"}}: {{form.username}}</h1>
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
-    <input type="hidden" name="username" value="{{form.username}}">
 
     {{#block "readonlyField" name="username" value=form.username i18nKey="linch.user.username"}}{{/block}}
     {{#block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}{{/block}}

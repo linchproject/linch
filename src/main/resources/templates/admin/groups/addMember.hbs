@@ -1,18 +1,15 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.groups.add.member"}}: {{group.groupname}}</h1>
 
 
 <form class="form-horizontal" role="form" action="{{path "doAddMember"}}" method="post">
-    <input type="hidden" name="groupname" value="{{group.groupname}}">
 
-    <div class="form-group {{#form.username.error}}has-error{{/form.username.error}}">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.username"}}</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="username" name="username" value="{{form.username}}" required>
-            {{#form.username.error}}<span class="help-block">{{.}}</span>{{/form.username.error}}
-        </div>
-    </div>
+    {{#block "hiddenField" name="groupname" value=group.groupname}}{{/block}}
+    {{#block "inputField" name="username" value=form.username error=form.username.error i18nKey="linch.user.username"}}{{/block}}
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">
