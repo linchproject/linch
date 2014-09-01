@@ -6,6 +6,7 @@
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
 
+    {{#block "hiddenField" name="username" value=form.username}}{{/block}}
     {{#block "readonlyField" name="username" value=form.username i18nKey="linch.user.username"}}{{/block}}
     {{#block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}{{/block}}
     {{#block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}{{/block}}
