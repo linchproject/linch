@@ -24,7 +24,6 @@ public class GroupsController extends AdministratorController implements IndexAc
     @Override
     public Result indexAction() {
         return render(context()
-                .put("navGroups", true)
                 .put("groups", groupDao.findAll()));
     }
 
@@ -33,7 +32,6 @@ public class GroupsController extends AdministratorController implements IndexAc
         Group group = groupDao.findByGroupname(route.getParams().get("groupname"));
         List<User> members = groupDao.getMembers(group);
         return render(context()
-                .put("navGroups", true)
                 .put("group", group)
                 .put("members", members));
     }
@@ -41,7 +39,6 @@ public class GroupsController extends AdministratorController implements IndexAc
     @Override
     public Result createAction() {
         return render(context()
-                .put("navGroups", true)
                 .put("form", getCreateForm()));
     }
 
@@ -60,7 +57,6 @@ public class GroupsController extends AdministratorController implements IndexAc
         }
 
         return render("create", context()
-                .put("navGroups", true)
                 .put("form", form));
     }
 
@@ -69,7 +65,6 @@ public class GroupsController extends AdministratorController implements IndexAc
         Group group = groupDao.findByGroupname(route.getParams().get("groupname"));
 
         return render(context()
-                .put("navGroups", true)
                 .put("group", group));
     }
 
@@ -85,7 +80,6 @@ public class GroupsController extends AdministratorController implements IndexAc
         Group group = groupDao.findByGroupname(route.getParams().get("groupname"));
 
         return render(context()
-                .put("navGroups", true)
                 .put("group", group)
                 .put("form", getAddMemberForm()));
     }
@@ -104,7 +98,6 @@ public class GroupsController extends AdministratorController implements IndexAc
         }
 
         return render("addMember", context()
-                .put("navGroups", true)
                 .put("group", group)
                 .put("form", form));
     }

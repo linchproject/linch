@@ -22,7 +22,6 @@ public class UsersController extends AdministratorController implements Crud {
     @Override
     public Result indexAction() {
         return render(context()
-                .put("navUsers", true)
                 .put("users", userDao.findAll()));
     }
 
@@ -30,7 +29,6 @@ public class UsersController extends AdministratorController implements Crud {
     public Result viewAction() {
         User user = userDao.findByUsername(route.getParams().get("username"));
         return render(context()
-                .put("navUsers", true)
                 .put("theUser", user));
     }
 
@@ -39,7 +37,6 @@ public class UsersController extends AdministratorController implements Crud {
         User user = userDao.findByUsername(route.getParams().get("username"));
 
         return render(context()
-                .put("navUsers", true)
                 .put("form", getEditForm()
                         .put("username", user.getUsername())
                         .put("firstName", user.getFirstName())
@@ -64,14 +61,12 @@ public class UsersController extends AdministratorController implements Crud {
         }
 
         return render("edit", context()
-                .put("navUsers", true)
                 .put("form", form));
     }
 
     @Override
     public Result createAction() {
         return render(context()
-                .put("navUsers", true)
                 .put("form", getCreateForm()));
     }
 
@@ -94,7 +89,6 @@ public class UsersController extends AdministratorController implements Crud {
         }
 
         return render("create", context()
-                .put("navUsers", true)
                 .put("form", form));
     }
 
@@ -103,7 +97,6 @@ public class UsersController extends AdministratorController implements Crud {
         User user = userDao.findByUsername(route.getParams().get("username"));
 
         return render(context()
-                .put("navUsers", true)
                 .put("theUser", user));
     }
 

@@ -22,13 +22,12 @@ public class ProfileController extends SecureController implements IndexAction, 
 
     @Override
     public Result indexAction() {
-        return render(context().put("navIndex", true));
+        return render();
     }
 
     @Override
     public Result editAction() {
         return render(context()
-                .put("navIndex", true)
                 .put("form", getEditForm()
                         .put("firstName", getUser().getFirstName())
                         .put("lastName", getUser().getLastName())
@@ -52,13 +51,11 @@ public class ProfileController extends SecureController implements IndexAction, 
         }
 
         return render("edit", context()
-                .put("navIndex", true)
                 .put("form", form));
     }
 
     public Result changePasswordAction() {
         return render(context()
-                .put("navChangePassword", true)
                 .put("form", getChangePasswordForm()));
     }
 
@@ -72,12 +69,10 @@ public class ProfileController extends SecureController implements IndexAction, 
             user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));
             userDao.save(user);
             return render("changePassword", context()
-                    .put("navChangePassword", true)
                     .put("success", true));
         }
 
         return render("changePassword", context()
-                .put("navChangePassword", true)
                 .put("form", form));
     }
 

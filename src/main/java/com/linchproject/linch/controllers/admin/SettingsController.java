@@ -19,7 +19,6 @@ public class SettingsController extends AdministratorController implements Index
     @Override
     public Result indexAction() {
         return render(context()
-                .put("navSettings", true)
                 .put("indexPath", settingDao.findByKey("indexPath")));
     }
 
@@ -33,7 +32,6 @@ public class SettingsController extends AdministratorController implements Index
         }
 
         return render(context()
-                .put("navSettings", true)
                 .put("form", form));
     }
 
@@ -55,7 +53,6 @@ public class SettingsController extends AdministratorController implements Index
         }
 
         return render(context()
-                .put("navSettings", true)
                 .put("form", form));
     }
 

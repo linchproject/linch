@@ -15,7 +15,6 @@ public class AppsController extends AdministratorController implements IndexActi
     @Override
     public Result indexAction() {
         return render(context()
-                .put("navApps", true)
                 .put("apps", appService.getApps()));
     }
 

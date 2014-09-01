@@ -11,7 +11,6 @@ public class AppController extends AdministratorController implements IndexActio
 
     public Result indexAction() {
         return render(context()
-                .put("navIndex", true)
                 .put("hello", "Hello Admin"));
     }
 
