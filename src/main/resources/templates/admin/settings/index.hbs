@@ -8,11 +8,10 @@
 
     {{#block "readonlyField" name="indexPath" value=indexPath.value i18nKey="linch.settings.indexPath"}}{{/block}}
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-5">
-            <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
-        </div>
-    </div>
+    {{#block "buttonsField"}}
+        <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
+    {{/block}}
+
 </form>
 
 {{/partial}}

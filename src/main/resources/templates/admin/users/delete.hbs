@@ -12,12 +12,11 @@
         {{i18n "linch.users.delete.are.you.sure"}}
     </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-5">
-            <input class="btn btn-danger" type="submit" name="submit" value="{{i18n "linch.form.delete"}}">
-            <a class="btn btn-default" href="{{path "view" username=theUser.username}}">{{i18n "linch.form.cancel"}}</a>
-        </div>
-    </div>
+    {{#block "buttonsField"}}
+        <input class="btn btn-danger" type="submit" name="submit" value="{{i18n "linch.form.delete"}}">
+        <a class="btn btn-default" href="{{path "view" username=theUser.username}}">{{i18n "linch.form.cancel"}}</a>
+    {{/block}}
+
 </form>
 
 {{/partial}}

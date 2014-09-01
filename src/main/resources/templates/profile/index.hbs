@@ -11,11 +11,10 @@
     {{#block "readonlyField" name="lastName" value=user.lastName i18nKey="linch.user.last.name"}}{{/block}}
     {{#block "readonlyField" name="email" value=user.email i18nKey="linch.user.email"}}{{/block}}
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-5">
-            <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
-        </div>
-    </div>
+    {{#block "buttonsField"}}
+        <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
+    {{/block}}
+
 </form>
 
 {{/partial}}

@@ -11,12 +11,11 @@
     {{#block "readonlyField" name="lastName" value=theUser.lastName i18nKey="linch.user.last.name"}}{{/block}}
     {{#block "readonlyField" name="email" value=theUser.email i18nKey="linch.user.email"}}{{/block}}
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-5">
-            <a href="{{path "edit" username=theUser.username}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
-            <a href="{{path "delete" username=theUser.username}}" class="btn btn-danger">{{i18n "linch.form.delete"}}</a>
-        </div>
-    </div>
+    {{#block "buttonsField"}}
+        <a href="{{path "edit" username=theUser.username}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
+        <a href="{{path "delete" username=theUser.username}}" class="btn btn-danger">{{i18n "linch.form.delete"}}</a>
+    {{/block}}
+
 </form>
 
 {{/partial}}

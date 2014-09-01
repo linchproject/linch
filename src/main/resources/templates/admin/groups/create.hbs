@@ -9,12 +9,11 @@
 
     {{#block "inputField" name="groupname" value=form.groupname error=form.groupname.error i18nKey="linch.group.groupname"}}{{/block}}
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-5">
-            <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">
-            <a class="btn btn-default" href="{{path "index"}}">{{i18n "linch.form.cancel"}}</a>
-        </div>
-    </div>
+    {{#block "buttonsField"}}
+        <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">
+        <a class="btn btn-default" href="{{path "index"}}">{{i18n "linch.form.cancel"}}</a>
+    {{/block}}
+
 </form>
 
 {{/partial}}
