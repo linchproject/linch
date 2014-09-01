@@ -1,32 +1,16 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.profile"}}</h1>
 
 <form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.username"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{user.username}}</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.first.name"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{user.firstName}}</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.last.name"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{user.lastName}}</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.user.email"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{user.email}}</p>
-        </div>
-    </div>
+
+    {{#block "readonlyField" name="username" value=user.username i18nKey="linch.user.username"}}{{/block}}
+    {{#block "readonlyField" name="firstName" value=user.firstName i18nKey="linch.user.first.name"}}{{/block}}
+    {{#block "readonlyField" name="lastName" value=user.lastName i18nKey="linch.user.last.name"}}{{/block}}
+    {{#block "readonlyField" name="email" value=user.email i18nKey="linch.user.email"}}{{/block}}
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>

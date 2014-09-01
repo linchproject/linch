@@ -1,14 +1,13 @@
+{{#include "_partials/fields"}}{{/include}}
+
 {{#partial "inner"}}
 
 <h1 class="page-header">{{i18n "linch.settings"}}</h1>
 
 <form class="form-horizontal" role="form">
-    <div class="form-group">
-        <label class="col-sm-3 control-label">{{i18n "linch.settings.indexPath"}}</label>
-        <div class="col-sm-5">
-            <p class="form-control-static">{{indexPath.value}}</p>
-        </div>
-    </div>
+
+    {{#block "readonlyField" name="indexPath" value=indexPath.value i18nKey="linch.settings.indexPath"}}{{/block}}
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <a href="{{path "edit"}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>
