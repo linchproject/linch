@@ -6,11 +6,11 @@
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
 
-    {{#block "hiddenField" name="username" value=form.username}}{{/block}}
-    {{#block "readonlyField" name="username" value=form.username i18nKey="linch.user.username"}}{{/block}}
-    {{#block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}{{/block}}
-    {{#block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}{{/block}}
-    {{#block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}{{/block}}
+    {{{block "hiddenField" name="username" value=form.username}}}
+    {{{block "readonlyField" name="username" value=form.username i18nKey="linch.user.username"}}}
+    {{{block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}}
+    {{{block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}}
+    {{{block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}}
 
     {{#block "buttonsField"}}
         <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

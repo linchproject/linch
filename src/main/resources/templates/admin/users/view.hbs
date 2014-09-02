@@ -6,10 +6,10 @@
 
 <form class="form-horizontal" role="form">
 
-    {{#block "readonlyField" name="username" value=theUser.username i18nKey="linch.user.username"}}{{/block}}
-    {{#block "readonlyField" name="firstName" value=theUser.firstName i18nKey="linch.user.first.name"}}{{/block}}
-    {{#block "readonlyField" name="lastName" value=theUser.lastName i18nKey="linch.user.last.name"}}{{/block}}
-    {{#block "readonlyField" name="email" value=theUser.email i18nKey="linch.user.email"}}{{/block}}
+    {{{block "readonlyField" name="username" value=theUser.username i18nKey="linch.user.username"}}}
+    {{{block "readonlyField" name="firstName" value=theUser.firstName i18nKey="linch.user.first.name"}}}
+    {{{block "readonlyField" name="lastName" value=theUser.lastName i18nKey="linch.user.last.name"}}}
+    {{{block "readonlyField" name="email" value=theUser.email i18nKey="linch.user.email"}}}
 
     {{#block "buttonsField"}}
         <a href="{{path "edit" username=theUser.username}}" class="btn btn-default">{{i18n "linch.form.edit"}}</a>

@@ -7,7 +7,7 @@
 
 <form class="form-horizontal" role="form" action="{{path "doCreate"}}" method="post">
 
-    {{#block "inputField" name="groupname" value=form.groupname error=form.groupname.error i18nKey="linch.group.groupname"}}{{/block}}
+    {{{block "inputField" name="groupname" value=form.groupname error=form.groupname.error i18nKey="linch.group.groupname"}}}
 
     {{#block "buttonsField"}}
         <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

@@ -6,12 +6,12 @@
 
 <form class="form-horizontal" role="form" action="{{path "doCreate"}}" method="post">
 
-    {{#block "inputField" name="username" value=form.username error=form.username.error i18nKey="linch.user.username"}}{{/block}}
-    {{#block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}{{/block}}
-    {{#block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}{{/block}}
-    {{#block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}{{/block}}
-    {{#block "passwordField" name="password" value=form.password error=form.password.error i18nKey="linch.user.password"}}{{/block}}
-    {{#block "passwordField" name="confirmPassword" value=form.confirmPassword error=form.confirmPassword.error i18nKey="linch.users.confirm.password"}}{{/block}}
+    {{{block "inputField" name="username" value=form.username error=form.username.error i18nKey="linch.user.username"}}}
+    {{{block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}}
+    {{{block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}}
+    {{{block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}}
+    {{{block "passwordField" name="password" value=form.password error=form.password.error i18nKey="linch.user.password"}}}
+    {{{block "passwordField" name="confirmPassword" value=form.confirmPassword error=form.confirmPassword.error i18nKey="linch.users.confirm.password"}}}
 
     {{#block "buttonsField"}}
         <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

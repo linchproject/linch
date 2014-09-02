@@ -6,7 +6,7 @@
 
 <form class="form-horizontal" role="form" action="{{path "doDelete"}}" method="post">
 
-    {{#block "hiddenField" name="groupname" value=group.groupname}}{{/block}}
+    {{{block "hiddenField" name="groupname" value=group.groupname}}}
 
     <div class="alert alert-danger">
         {{i18n "linch.groups.delete.are.you.sure"}}
