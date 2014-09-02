@@ -38,11 +38,11 @@
             -->
 
             {{^user}}
-                {{^hideNavigationLogin}}
+                {{#inController "auth"}}{{else}}
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{path "/auth/login"}}">{{i18n "linch.auth.sign.in"}}</a></li>
                     </ul>
-                {{/hideNavigationLogin}}
+                {{/inController}}
             {{/user}}
 
             {{#user}}

@@ -21,7 +21,6 @@ public class AuthController extends Controller {
         Params params = route.getParams();
 
         return render(context()
-                .put("hideNavigationLogin", true)
                 .put("next", params.get("next") != null? params.get("next"): "/"));
     }
 
@@ -55,7 +54,6 @@ public class AuthController extends Controller {
             }
         }
         return render("login", context()
-                .put("hideNavigationLogin", true)
                 .put("error", true)
                 .put("username", params.get("username"))
                 .put("remember", "true".equals(params.get("remember")))
