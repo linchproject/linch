@@ -2,15 +2,11 @@ package com.linchproject.linch.controllers;
 
 import com.linchproject.core.Result;
 import com.linchproject.core.actions.IndexAction;
-import com.linchproject.forms.Form;
-import com.linchproject.forms.Validator;
-import com.linchproject.forms.validators.EmailValidator;
-import com.linchproject.forms.validators.EqualsValidator;
-import com.linchproject.forms.validators.RequiredValidator;
-import com.linchproject.linch.I18nForm;
 import com.linchproject.linch.SecureController;
 import com.linchproject.linch.actions.EditAction;
 import com.linchproject.linch.entities.User;
+import com.linchproject.validator.*;
+import com.linchproject.validator.validators.EqualsOtherValidator;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**
@@ -27,83 +23,80 @@ public class ProfileController extends SecureController implements IndexAction, 
 
     @Override
     public Result editAction() {
+        Data data = new UserDataValidator().dataFrom(getUser());
+
         return render(context()
-                .put("form", getEditForm()
-                        .put("firstName", getUser().getFirstName())
-                        .put("lastName", getUser().getLastName())
-                        .put("email", getUser().getEmail())));
+                .put("data", data));
     }
 
     @Override
     public Result doEditAction() {
         User user = getUser();
-        Form form = getEditForm();
 
-        form.bind(route.getParameterMap()).validate();
+        Data data = new UserDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        if (form.isValid()) {
-            user.setFirstName(form.get("firstName").getValue());
-            user.setLastName(form.get("lastName").getValue());
-            user.setEmail(form.get("email").getValue());
+        if (data.isValid()) {
+            data.writeTo(user, "firstName", "lastName", "email");
             userDao.save(user);
 
             return redirect("index");
         }
 
-        return render("edit", context()
-                .put("form", form));
+        return render("edit", context().put("data", data));
     }
 
     public Result changePasswordAction() {
         return render(context()
-                .put("form", getChangePasswordForm()));
+                .put("data", new PasswordDataValidator().emptyData()));
     }
 
     public Result doChangePasswordAction() {
         User user = getUser();
-        Form form = getChangePasswordForm();
 
-        form.bind(route.getParameterMap()).validate();
+        Data data = new PasswordDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        if (form.isValid()) {
-            user.setPassword(passwordEncryptor.encryptPassword(form.get("newPassword").getValue()));
+        if (data.isValid()) {
+            user.setPassword(passwordEncryptor.encryptPassword(data.<String>get("newPassword")));
             userDao.save(user);
             return render("changePassword", context()
                     .put("success", true));
         }
 
         return render("changePassword", context()
-                .put("form", form));
-    }
-
-    protected Form getEditForm() {
-        return new I18nForm(getI18n())
-                .addField("firstName")
-                .addField("lastName")
-                .addField("email", new RequiredValidator(), new EmailValidator());
-    }
-
-    protected Form getChangePasswordForm() {
-        return new I18nForm(getI18n())
-                .addField("currentPassword", new RequiredValidator(), new PasswordValidator())
-                .addField("newPassword", new RequiredValidator())
-                .addField("confirmNewPassword", new RequiredValidator(), new EqualsValidator("newPassword"));
-    }
-
-    public class PasswordValidator implements Validator {
-
-        @Override
-        public String getErrorKey() {
-            return "password.incorrect";
-        }
-
-        @Override
-        public boolean isValid(String[] values, Form form) {
-            return passwordEncryptor.checkPassword(values[0], getUser().getPassword());
-        }
+                .put("data", data));
     }
 
     public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
+    }
+
+    public class PasswordDataValidator extends DataValidator {
+        public PasswordDataValidator() {
+            addFields("currentPassword", "newPassword", "confirmNewPassword");
+            setAllRequired();
+            addValidator("currentPassword", new PasswordValidator());
+            addValidator("confirmNewPassword", new EqualsOtherValidator("newPassword"));
+        }
+
+        public class PasswordValidator implements Validator {
+
+            @Override
+            public String getKey() {
+                return "password.incorrect";
+            }
+
+            @Override
+            public boolean isValid(Value value) {
+                return passwordEncryptor.checkPassword(value.getString(), getUser().getPassword());
+            }
+        }
+    }
+
+    public class UserDataValidator extends DataValidator {
+        public UserDataValidator() {
+            addFields(User.class);
+            setRequired("email");
+            addValidator("email", Validators.EMAIL);
+        }
     }
 }

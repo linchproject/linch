@@ -6,7 +6,7 @@
 
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
 
-    {{{block "inputField" name="indexPath" value=form.indexPath i18nKey="linch.settings.indexPath"}}}
+    {{{block "textField" name="indexPath" value=data.values.indexPath error=data.errors.indexPath i18nKey="linch.settings.indexPath" required=true}}}
 
     {{#block "buttonsField"}}
         <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

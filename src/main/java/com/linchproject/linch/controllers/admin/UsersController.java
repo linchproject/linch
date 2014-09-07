@@ -1,15 +1,11 @@
 package com.linchproject.linch.controllers.admin;
 
 import com.linchproject.core.Result;
-import com.linchproject.forms.Form;
-import com.linchproject.forms.Validator;
-import com.linchproject.forms.validators.EmailValidator;
-import com.linchproject.forms.validators.EqualsValidator;
-import com.linchproject.forms.validators.RequiredValidator;
 import com.linchproject.linch.AdministratorController;
-import com.linchproject.linch.I18nForm;
 import com.linchproject.linch.actions.Crud;
 import com.linchproject.linch.entities.User;
+import com.linchproject.validator.*;
+import com.linchproject.validator.validators.EqualsOtherValidator;
 import org.jasypt.util.password.PasswordEncryptor;
 
 /**
@@ -37,59 +33,46 @@ public class UsersController extends AdministratorController implements Crud {
         User user = userDao.findByUsername(route.getParams().get("username"));
 
         return render(context()
-                .put("form", getEditForm()
-                        .put("username", user.getUsername())
-                        .put("firstName", user.getFirstName())
-                        .put("lastName", user.getLastName())
-                        .put("email", user.getEmail())));
+                .put("data", new EditUserDataValidator().dataFrom(user)));
     }
 
     @Override
     public Result doEditAction() {
         User user = userDao.findByUsername(route.getParams().get("username"));
-        Form form = getEditForm();
 
-        form.bind(route.getParameterMap()).validate();
+        Data data = new EditUserDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        if (form.isValid()) {
-            user.setFirstName(form.get("firstName").getValue());
-            user.setLastName(form.get("lastName").getValue());
-            user.setEmail(form.get("email").getValue());
+        if (data.isValid()) {
+            data.writeTo(user, "firstName", "lastName", "email");
             userDao.save(user);
 
             return redirect("view?username=" + user.getUsername());
         }
 
         return render("edit", context()
-                .put("form", form));
+                .put("data", data));
     }
 
     @Override
     public Result createAction() {
         return render(context()
-                .put("form", getCreateForm()));
+                .put("data", new CreateUserDataValidator().emptyData()));
     }
 
     @Override
     public Result doCreateAction() {
-        Form form = getCreateForm();
+        Data data = new CreateUserDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        form.bind(route.getParameterMap()).validate();
-
-        if (form.isValid()) {
+        if (data.isValid()) {
             User user = new User();
-            user.setUsername(form.get("username").getValue());
-            user.setFirstName(form.get("firstName").getValue());
-            user.setLastName(form.get("lastName").getValue());
-            user.setEmail(form.get("email").getValue());
-            user.setPassword(passwordEncryptor.encryptPassword(form.get("password").getValue()));
+            data.writeTo(user);
             userDao.save(user);
 
             return redirect("view?username=" + user.getUsername());
         }
 
         return render("create", context()
-                .put("form", form));
+                .put("data", data));
     }
 
     @Override
@@ -108,39 +91,58 @@ public class UsersController extends AdministratorController implements Crud {
         return redirect("index");
     }
 
-    protected Form getEditForm() {
-        return new I18nForm(getI18n())
-                .addField("username")
-                .addField("firstName")
-                .addField("lastName")
-                .addField("email", new RequiredValidator(), new EmailValidator());
-    }
-
-    protected Form getCreateForm() {
-        return new I18nForm(getI18n())
-                .addField("username", new RequiredValidator(), new UserExistsValidator())
-                .addField("firstName")
-                .addField("lastName")
-                .addField("email", new RequiredValidator(), new EmailValidator())
-                .addField("password", new RequiredValidator())
-                .addField("confirmPassword", new EqualsValidator("password"));
-    }
-
     public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
     }
 
-    public class UserExistsValidator implements Validator {
-        @Override
-        public String getErrorKey() {
-            return "user.exists";
+    public class EditUserDataValidator extends DataValidator {
+        public EditUserDataValidator() {
+            addFields(User.class);
+            setRequired("email");
+            addValidator("email", Validators.EMAIL);
+        }
+    }
+
+    public class CreateUserDataValidator extends DataValidator {
+        CreateUserDataValidator() {
+            addFields(User.class, "confirmPassword");
+            setRequired("username", "email", "password", "confirmPassword");
+            addValidator("username", new UserExistsValidator());
+            addValidator("email", Validators.EMAIL);
+            addValidator("confirmPassword", new EqualsOtherValidator("password"));
+            addParser("password", new PasswordParser());
         }
 
-        @Override
-        public boolean isValid(String[] values, Form form) {
-            String username = values[0];
-            User user = userDao.findByUsername(username);
-            return user == null;
+        public class UserExistsValidator implements Validator {
+
+            @Override
+            public String getKey() {
+                return "user.exists";
+            }
+
+            @Override
+            public boolean isValid(Value value) {
+                User user = userDao.findByUsername(value.getString());
+                return user == null;
+            }
+        }
+
+        public class PasswordParser implements Parser<String> {
+
+            @Override
+            public Class<String> getType() {
+                return String.class;
+            }
+
+            @Override
+            public String parse(Value value) throws ParseException {
+                return passwordEncryptor.encryptPassword(value.getString());
+            }
+
+            @Override
+            public String[] toStringArray(String s) {
+                return null;
+            }
         }
     }
 }

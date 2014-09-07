@@ -1,19 +1,29 @@
-{{#partial "inputField"}}
+{{#partial "textField"}}
     <div class="form-group {{#error}}has-error{{/error}}">
-        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}</label>
+        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}{{#required}}*{{/required}}</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}">
-            {{#error}}<span class="help-block">{{.}}</span>{{/error}}
+            <input type="text" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}" {{#required}}required{{/required}}>
+            {{#error}}<span class="help-block">{{i18n error prefix="linch.error."}}</span>{{/error}}
         </div>
     </div>
 {{/partial}}
 
 {{#partial "passwordField"}}
     <div class="form-group {{#error}}has-error{{/error}}">
-        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}</label>
+        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}{{#required}}*{{/required}}</label>
         <div class="col-sm-5">
-            <input type="password" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}">
-            {{#error}}<span class="help-block">{{.}}</span>{{/error}}
+            <input type="password" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}" {{#required}}required{{/required}}>
+            {{#error}}<span class="help-block">{{i18n error prefix="linch.error."}}</span>{{/error}}
+        </div>
+    </div>
+{{/partial}}
+
+{{#partial "emailField"}}
+    <div class="form-group {{#error}}has-error{{/error}}">
+        <label for="{{name}}" class="col-sm-3 control-label">{{i18n i18nKey}}{{#required}}*{{/required}}</label>
+        <div class="col-sm-5">
+            <input type="email" class="form-control" id="{{name}}" name="{{name}}" value="{{value}}" {{#required}}required{{/required}}>
+            {{#error}}<span class="help-block">{{i18n error prefix="linch.error."}}</span>{{/error}}
         </div>
     </div>
 {{/partial}}

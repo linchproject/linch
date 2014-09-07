@@ -7,9 +7,9 @@
 <form class="form-horizontal" role="form" action="{{path "doEdit"}}" method="post">
 
     {{{block "readonlyField" name="username" value=user.username i18nKey="linch.user.username"}}}
-    {{{block "inputField" name="firstName" value=form.firstName error=form.firstName.error i18nKey="linch.user.first.name"}}}
-    {{{block "inputField" name="lastName" value=form.lastName error=form.lastName.error i18nKey="linch.user.last.name"}}}
-    {{{block "inputField" name="email" value=form.email error=form.email.error i18nKey="linch.user.email"}}}
+    {{{block "textField" name="firstName" value=data.values.firstName error=data.errors.firstName i18nKey="linch.user.first.name"}}}
+    {{{block "textField" name="lastName" value=data.values.lastName error=data.errors.lastName i18nKey="linch.user.last.name"}}}
+    {{{block "textField" name="email" value=data.values.email error=data.errors.email i18nKey="linch.user.email" required=true}}}
 
     {{#block "buttonsField"}}
         <input class="btn btn-primary" type="submit" name="submit" value="{{i18n "linch.form.save"}}">

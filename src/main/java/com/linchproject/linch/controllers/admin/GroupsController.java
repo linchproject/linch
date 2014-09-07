@@ -3,16 +3,16 @@ package com.linchproject.linch.controllers.admin;
 import com.linchproject.core.Params;
 import com.linchproject.core.Result;
 import com.linchproject.core.actions.IndexAction;
-import com.linchproject.forms.Form;
-import com.linchproject.forms.Validator;
-import com.linchproject.forms.validators.RequiredValidator;
 import com.linchproject.linch.AdministratorController;
-import com.linchproject.linch.I18nForm;
 import com.linchproject.linch.actions.CreateAction;
 import com.linchproject.linch.actions.DeleteAction;
 import com.linchproject.linch.actions.ViewAction;
 import com.linchproject.linch.entities.Group;
 import com.linchproject.linch.entities.User;
+import com.linchproject.validator.Data;
+import com.linchproject.validator.DataValidator;
+import com.linchproject.validator.Validator;
+import com.linchproject.validator.Value;
 
 import java.util.List;
 
@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class GroupsController extends AdministratorController implements IndexAction, ViewAction, CreateAction, DeleteAction {
 
-    @Override
     public Result indexAction() {
         return render(context()
                 .put("groups", groupDao.findAll()));
@@ -39,25 +38,23 @@ public class GroupsController extends AdministratorController implements IndexAc
     @Override
     public Result createAction() {
         return render(context()
-                .put("form", getCreateForm()));
+                .put("data", new CreateGroupDataValidator().emptyData()));
     }
 
     @Override
     public Result doCreateAction() {
-        Form form = getCreateForm();
+        Data data = new CreateGroupDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        form.bind(route.getParameterMap()).validate();
-
-        if (form.isValid()) {
+        if (data.isValid()) {
             Group group = new Group();
-            group.setGroupname(form.get("groupname").getValue());
+            data.writeTo(group);
             groupDao.save(group);
 
             return redirect("view?groupname=" + group.getGroupname());
         }
 
         return render("create", context()
-                .put("form", form));
+                .put("data", data));
     }
 
     @Override
@@ -81,17 +78,16 @@ public class GroupsController extends AdministratorController implements IndexAc
 
         return render(context()
                 .put("group", group)
-                .put("form", getAddMemberForm()));
+                .put("data", new AddMemberDataValidator().emptyData()));
     }
 
     public Result doAddMemberAction() {
         Group group = groupDao.findByGroupname(route.getParams().get("groupname"));
-        Form form = getAddMemberForm();
 
-        form.bind(route.getParameterMap()).validate();
+        Data data = new AddMemberDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        if (form.isValid()) {
-            User user = userDao.findByUsername(form.get("username").getValue());
+        if (data.isValid()) {
+            User user = userDao.findByUsername(data.<String>get("username"));
             groupDao.addMember(group, user);
 
             return redirect("view?groupname=" + group.getGroupname());
@@ -99,7 +95,7 @@ public class GroupsController extends AdministratorController implements IndexAc
 
         return render("addMember", context()
                 .put("group", group)
-                .put("form", form));
+                .put("data", data));
     }
 
     public Result removeMemberAction() {
@@ -111,41 +107,47 @@ public class GroupsController extends AdministratorController implements IndexAc
         return redirect("view?groupname=" + group.getGroupname());
     }
 
-    protected Form getCreateForm() {
-        return new I18nForm(getI18n())
-                .addField("groupname", new RequiredValidator(), new GroupExistsValidator());
-    }
-
-    protected Form getAddMemberForm() {
-        return new I18nForm(getI18n())
-                .addField("username", new RequiredValidator(), new UserNotExistsValidator());
-    }
-
-    public class GroupExistsValidator implements Validator {
-        @Override
-        public String getErrorKey() {
-            return "group.exists";
+    public class CreateGroupDataValidator extends DataValidator {
+        public CreateGroupDataValidator() {
+            addFields(Group.class);
+            setAllRequired();
+            addValidator("groupName", new GroupExistsValidator());
         }
 
-        @Override
-        public boolean isValid(String[] values, Form form) {
-            String groupname = values[0];
-            Group group = groupDao.findByGroupname(groupname);
-            return group == null;
+        public class GroupExistsValidator implements Validator {
+
+            @Override
+            public String getKey() {
+                return "group.exists";
+            }
+
+            @Override
+            public boolean isValid(Value value) {
+                Group group = groupDao.findByGroupname(value.getString());
+                return group == null;
+            }
         }
     }
 
-    public class UserNotExistsValidator implements Validator {
-        @Override
-        public String getErrorKey() {
-            return "user.not.exists";
+    public class AddMemberDataValidator extends DataValidator {
+        public AddMemberDataValidator() {
+            addField("username");
+            setAllRequired();
+            addValidator("username", new UserNotExistsValidator());
         }
 
-        @Override
-        public boolean isValid(String[] values, Form form) {
-            String username = values[0];
-            User user = userDao.findByUsername(username);
-            return user != null;
+        public class UserNotExistsValidator implements Validator {
+
+            @Override
+            public String getKey() {
+                return "user.not.exists";
+            }
+
+            @Override
+            public boolean isValid(Value value) {
+                User user = userDao.findByUsername(value.getString());
+                return user != null;
+            }
         }
     }
 }

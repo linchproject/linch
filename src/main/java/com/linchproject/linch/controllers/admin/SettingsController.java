@@ -2,12 +2,12 @@ package com.linchproject.linch.controllers.admin;
 
 import com.linchproject.core.Result;
 import com.linchproject.core.actions.IndexAction;
-import com.linchproject.forms.Form;
 import com.linchproject.linch.AdministratorController;
-import com.linchproject.linch.I18nForm;
 import com.linchproject.linch.actions.EditAction;
 import com.linchproject.linch.dao.SettingDao;
 import com.linchproject.linch.entities.Setting;
+import com.linchproject.validator.Data;
+import com.linchproject.validator.DataValidator;
 
 /**
  * @author Georg Schmidl
@@ -16,7 +16,6 @@ public class SettingsController extends AdministratorController implements Index
 
     protected SettingDao settingDao;
 
-    @Override
     public Result indexAction() {
         return render(context()
                 .put("indexPath", settingDao.findByKey("indexPath")));
@@ -24,44 +23,45 @@ public class SettingsController extends AdministratorController implements Index
 
     @Override
     public Result editAction() {
-        Form form = getEditForm();
+        Data data = new SettingsDataValidator().emptyData();
 
-        Setting indexPath = settingDao.findByKey("indexPath");
+        final Setting indexPath = settingDao.findByKey("indexPath");
         if (indexPath != null) {
-            form.put("indexPath", indexPath.getValue());
+            data.set("indexPath", indexPath.getValue());
         }
 
         return render(context()
-                .put("form", form));
+                .put("data", data));
     }
 
     @Override
     public Result doEditAction() {
-        Form form = getEditForm();
-        form.bind(route.getParameterMap()).validate();
+        Data data = new SettingsDataValidator().dataFrom(route.getParameterMap()).validate();
 
-        if (form.isValid()) {
+        if (data.isValid()) {
             Setting indexPath = settingDao.findByKey("indexPath");
             if (indexPath == null) {
                 indexPath = new Setting();
                 indexPath.setKey("indexPath");
             }
-            indexPath.setValue(form.get("indexPath").getValue());
+            indexPath.setValue(data.<String>get("indexPath"));
             settingDao.save(indexPath);
 
             return redirect("index");
         }
 
-        return render(context()
-                .put("form", form));
+        return render("edit", context()
+                .put("data", data));
     }
 
     public void setSettingDao(SettingDao settingDao) {
         this.settingDao = settingDao;
     }
 
-    protected Form getEditForm() {
-        return new I18nForm(getI18n())
-                .addField("indexPath");
+    public class SettingsDataValidator extends DataValidator {
+        public SettingsDataValidator() {
+            addField("indexPath");
+            setAllRequired();
+        }
     }
 }
